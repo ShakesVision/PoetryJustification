@@ -1,0 +1,150 @@
+<head>
+  <style>
+    @import url(http://fonts.googleapis.com/earlyaccess/notonastaliqurdudraft.css);
+    body {
+      font-family: 'Noto Nastaliq Urdu Draft', serif;
+      font-size: large;
+    }
+
+    .sher,
+    .sher td,
+    .sher2,
+    .sher2 td {
+      text-align: justify;
+      text-align-last: justify;
+      -o-text-align-last: justify;
+      -ms-text-align-last: justify;
+      -moz-text-align-last: justify;
+      -webkit-text-align-last: justify;
+    }
+
+    .sher,
+    .sher2 {
+      margin: 0 auto;
+      direction: rtl;
+      line-height: 1.8em;
+    }
+
+    .sher2 td {
+      width: 45%
+    }
+
+    .sher2 tr td:nth-child(2) {
+      width: 10%;
+    }
+
+    .sher tr td {
+      padding-bottom: 5px;
+    }
+
+    .sher tr:nth-child(2n) td {
+      padding-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="text-align: center;">
+    <h1 style="text-align: center;">صدیق</h1>
+    <h3>علامہ اقبالؔ</h3>
+  </div>
+  <div class="sher2">
+    اِک دن رسولِ پاک نے اصحاب سے کہا​
+    دیں مال راہِ حق میں جو ہوں تم میں مالدار​
+    ​ارشاد سن کے فرطِ طرب سے عمر اٹھے​
+    اس روز انکے پاس تھے درہم کئی ہزار​
+    ​دل میں یہ کہہ رہے تھے کہ صدیق سے ضرور​
+    بڑھ کر رکھے گا آج قدم میرا راہوار​
+    ​لائے غرض کہ مال رسولِ امیں کے پاس​
+    ایثار کی ہے دست نگر ابتدائے کار​
+    ​پوچھا حضور وسرورِ عالم نے ، اے عمر !​
+    اے وہ کہ جوشِ حق سے ترے دل کو ہے قرار​
+    ​رکھا ہے کچھ عیال کی خاطر بھی تو نے کیا؟​
+    مسلم ہے اپنے خویش و اقارب کا حق گذار​
+    کی عرض نصف مال ہے فرزند و زن کا حق​
+    باقی جو ہے وہ ملتِ بیضا پہ ہے نثار​
+    اتنے میں وہ رفیقِ نبوت بھی آگیا​
+    جس سے بنائے عشق و محبت ہے استوار​
+    لے آیا اپنے ساتھ وہ مردِ وفا سرشت​
+    ہر چیز، جس سے چشمِ جہاں میں ہو اعتبار​
+    مِلکِ یمین و درہم و دینار و رخت و جنس​
+    اسپِ قمر، سم و شتر و قاطر و حمار​
+    بولے حضور، چاہئے فکرِ عیال بھی
+    کہنے لگا وہ عشق و محبت کا رازدار​
+    ​اے تجھ سے دیدۂ مہ و انجم فروغ گیر​
+    اے تیری ذات باعثِ تکوینِ روزگار​​
+  </div>
+
+  <div class="sher">
+    پروانے کو چراغ ہے ، بلبل کو پھول بس​
+    صدیق کے لئے ہے خدا کا رسول بس!​
+  </div>
+
+  <div style="text-align: center;">
+    <h1 style="text-align: center;">غزل</h1>
+    <h3>شکیبؔ احمد</h3>
+  </div>
+  <div class="sher">
+    ہم پہ ساقی کی عنایت سے جلے جاتے ہیں
+    یہ جو اَب تک کفِ افسوس ملے جاتے ہیں
+    یاد آ جاتی ہیں بے ساختہ باتیں ان کی
+    بے سبب ہونٹ تبسم میں ڈھلے جاتے ہیں
+    وقتِ رخصت کی پس و پیش انہیں کیا معلوم
+    دل رکا جاتا ہے جانے سے ولے جاتے ہیں
+    رفتہ رفتہ دمِ آخیر بھی آ پہنچے گا
+    رات دن وصل کے وعدوں پہ ٹلے جاتے ہیں
+    جائیے کچھ نہیں کہتے، جو ہوا ہے سو ہوا
+    سارے الزام مقدر کے گلے جاتے ہیں
+    ضبطِ گریہ میں شکیبؔ آپ نے پایا ہے کمال
+    ان کی گلیوں سے بھی چپ چاپ چلے جاتے ہیں
+  </div>
+
+  <footer style="text-align: center; color: grey; padding: 20px;background-color: rgb(211, 211, 211);">
+    2020, by <a href="https://ur.shakeeb.in">Shakeeb Ahmad.</a> 
+  </footer>
+
+  <script>
+    var elements = document.getElementsByClassName("sher");
+    Array.from(elements).forEach(e => {
+      e.style.whiteSpace = "pre-wrap";
+      e.innerHTML = tabulate(e.innerText);
+    });
+    var elements2 = document.getElementsByClassName("sher2");
+    Array.from(elements2).forEach(e => {
+      e.style.whiteSpace = "pre-wrap";
+      e.innerHTML = tabulate2(e.innerText);
+    });
+
+    function tabulate(strIn) {
+      strIn = strIn.replace(/[\r\n]+/g, "\n").replace(/^\s+|\s+$/g, "").replace(/\r?\n|\r/g, "</td></tr>\n<tr><td>");
+      if (strIn.length != "")
+        return "<table class=\"sher\">\n<tr><td>" + strIn + "</td></tr>\n</table>";
+      else
+        return "یہاں اک شعر ہونا چاہیے تھا۔";
+    }
+
+    /*
+    odd - </td><td> 
+    even - </td></tr><tr><td>
+    */
+    function tabulate2(strIn) {
+      if (strIn.length != "") {
+        strIn = strIn.replace(/[\r\n]+/g, "\n").replace(/^\s+|\s+$/g, "");
+        var lines = strIn.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          if ((i + 1) % 2 != 0)
+            lines[i] = lines[i] + "</td><td> </td><td>";
+          else
+            lines[i] = lines[i] + "</td></tr>\n<tr><td>";
+
+        }
+        strIn = lines.join("");
+        strIn = "<table class=\"sher2\">\n<tr><td>" + strIn + "</td></tr>\n</table>";
+        strIn = strIn.replace("<tr><td></td></tr>", "").replace("<td></td>", "");
+        return strIn.replace(/[\r\n]+/g, "\n").replace(/^\s+|\s+$/g, "");
+      }
+      else
+        return "یہاں اک شعر ہونا چاہیے تھا۔";
+    }
+  </script>
+</body>
