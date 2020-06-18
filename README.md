@@ -5,9 +5,18 @@
   - `<div class="sher2"></div>` for two columns.
 3. Write poetry lines inside div tags. 
 
+# Features
+Double column
+  - Distributed by space you can change
+  - Responsive, as width are defined using percentages
+  - Both column widths are same irrespective of the content length in them
+  
+Single column
+  - Gap after every she'rs (2 lines)  
+  
 # Demo
 https://shakesvision.github.io/PoetryJustification/
 
-Star it if you've used it. 
+Star the repo if you've used it. 
 
 Want to see more interesting stuff? Here's my Urdu blog: https://ur.shakeeb.in/
