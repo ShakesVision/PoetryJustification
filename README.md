@@ -12,7 +12,7 @@ Double column
   - Both column widths are same irrespective of the content length in them
   
 Single column
-  - Gap after every she'rs (2 lines)  
+  - Gap after every she'r (2 lines)  
   
 # Demo
 https://shakesvision.github.io/PoetryJustification/
