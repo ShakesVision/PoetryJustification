@@ -1,5 +1,5 @@
 # Use
-1. Add the script and styles in the pages you want. Refer HTML file for the code. 
+1. Add the script and styles in the pages you want. Refer index.html file in the doc folder for the code. 
 2. Add a new 
   - `<div class="sher"></div>` for one column and
   - `<div class="sher2"></div>` for two columns.
