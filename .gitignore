@@ -5,7 +5,6 @@ node_modules/
 package-lock.json
 
 # Build outputs
-dist/*.min.js
 dist/*.map
 
 # Logs

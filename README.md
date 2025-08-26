@@ -46,7 +46,7 @@ A small JS library by **Shakeeb Ahmad** (https://shakeeb.in), which automaticall
 ### CDN (via jsDelivr)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/shakeeb/poetry-justify@v1.0.0/dist/shakeeb-justify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.0/dist/shakeeb-justify.min.js"></script>
 ```
 
 ### 📦 NPM Installation (Optional)
@@ -75,7 +75,7 @@ The script will:
 
 Just drop this script on your page:
 
-`<script src="https://cdn.jsdelivr.net/gh/shakeeb/PoetryJustification@v1.0.0/dist/shakeeb-justify.min.js"></script>`
+`<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.0/dist/shakeeb-justify.min.js"></script>`
 
 It runs automatically when the page loads.
 
