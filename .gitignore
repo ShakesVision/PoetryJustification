@@ -1,0 +1,27 @@
+# Node modules (never commit)
+node_modules/
+
+# Package lock
+package-lock.json
+
+# Build outputs
+dist/*.min.js
+dist/*.map
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
+# Optional IDE configs
+.vscode/
+.idea/
+
+# Optional dotenv or config secrets
+.env
+.env.local
