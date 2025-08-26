@@ -1,4 +1,4 @@
-# Use
+# Use (older instructions, please scroll for completely automated script)
 
 1. Add the script and styles in the pages you want. Refer index.html file in the doc folder for the code.
 2. Add a new
@@ -75,7 +75,7 @@ The script will:
 
 Just drop this script on your page:
 
-`  `
+`<script src="https://cdn.jsdelivr.net/gh/shakeeb/PoetryJustification@v1.0.0/dist/shakeeb-justify.min.js"></script>`
 
 It runs automatically when the page loads.
 
@@ -89,7 +89,11 @@ You can manually trigger formatting:
 
 Clone the repo and install dependencies:
 
-`git clone https://github.com/shakeeb/poetry-justify.git  cd poetry-justify  npm install`
+```
+git clone https://github.com/shakeeb/poetry-justify.git
+cd poetry-justify
+npm install
+```
 
 To build a minified version:
 
@@ -97,8 +101,8 @@ To build a minified version:
 
 That will create dist/shakeeb-justify.min.js using terser.
 
-### 🪪 License
+### License
 
-MIT License © 2025**Shakeeb Ahmad** — https://shakeeb.in
+MIT License © 2020 **Shakeeb Ahmad** — https://shakeeb.in
 
 You’re free to use, modify, distribute — just retain attribution in your builds. 🙏
