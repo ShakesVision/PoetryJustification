@@ -63,7 +63,13 @@ Then import and use it:
 
 Add your poetry as plain text inside a .sher (1-column) or .sher2 (2-column) block:
 
-`پہلا مصرع  دوسرا مصرع  پہلا مصرع  دوسرا مصرع  تیسرا مصرع  چوتھا مصرع`
+```html
+<!-- 1-column (sher) -->
+<div class="sher">پہلا مصرع دوسرا مصرع</div>
+
+<!-- 2-column (sher2) -->
+<div class="sher2">پہلا مصرع دوسرا مصرع تیسرا مصرع چوتھا مصرع</div>
+```
 
 The script will:
 
@@ -89,7 +95,7 @@ You can manually trigger formatting:
 
 Clone the repo and install dependencies:
 
-```
+```bash
 git clone https://github.com/shakeeb/poetry-justify.git
 cd poetry-justify
 npm install

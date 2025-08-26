@@ -1,14 +1,31 @@
 {
   "name": "shakeeb-justify",
   "version": "1.0.0",
-  "description": "Poetry justification for Urdu by Shakeeb Ahmad",
+  "description": "Urdu poetry justification utility by Shakeeb Ahmad",
   "main": "dist/shakeeb-justify.min.js",
-  "author": "Shakeeb Ahmad <admin@sarbakaf.com>",
-  "license": "MIT",
   "scripts": {
     "build": "terser dist/shakeeb-justify.js -o dist/shakeeb-justify.min.js --compress --mangle"
   },
-  "dependencies": {
+  "keywords": [
+    "justify-align-last",
+    "justify-with-table",
+    "justify",
+    "nastaleeq",
+    "poetry-justify",
+    "poetry",
+    "shakeeb",
+    "ShakesVision",
+    "table-justify",
+    "typography",
+    "urdu"
+  ],
+  "author": "Shakeeb Ahmad <admin@sarbakaf.com> (https://shakeeb.in)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShakesVision/PoetryJustification.git"
+  },
+  "devDependencies": {
     "terser": "^5.43.1"
   }
 }
