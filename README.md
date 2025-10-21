@@ -1,6 +1,12 @@
 # ShakeebJustify — Poetry Justification for Urdu
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/shakesvision/PoetryJustification/pages%2Fpages-build-deployment?style=for-the-badge&logo=buddy&logoColor=%23F5C400)
+
 A small JS library by **Shakeeb Ahmad** (https://shakeeb.in), which automatically formats Urdu `sher` and `sher2` content into beautifully justified tables with no extra CSS needed—just include the script.
+
+[![NPM](shakeeb_justify.png)](https://www.npmjs.com/package/shakeeb-justify)
+
+https://www.npmjs.com/package/shakeeb-justify
 
 ## Features
 
@@ -66,10 +72,12 @@ You can manually trigger formatting:
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/shakeeb/poetry-justify.git
-cd poetry-justify
+git clone https://github.com/ShakesVision/PoetryJustification.git
+cd PoetryJustification
 npm install
 ```
+
+And make changes.
 
 To build a minified version:
 
