@@ -12,7 +12,7 @@
         const style = document.createElement('style');
         style.id = 'shakeeb-justify-style';
         style.textContent = `
-        .sher, .sher td, .sher2, .sher2 td { text-align: justify; text-align-last: justify; direction: rtl; line-height: 1.5em; margin: 0 auto; white-space: pre-wrap; }
+        .sher, .sher td, .sher2, .sher2 td { text-align: justify; text-align-last: justify; direction: rtl; line-height: 1.5em; margin: 0 auto;}
         .sher2 td { width: 46%; }
         .sher2 tr td:nth-child(2) { width: 10%; }
         .sher tr td { padding-bottom: 5px; }
