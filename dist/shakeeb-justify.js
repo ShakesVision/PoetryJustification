@@ -2,7 +2,7 @@
  * ShakeebJustify (Poetry Justification for Urdu / Nastaliq)
  * Author: Shakeeb Ahmad
  * Website: https://shakeeb.in
- * Version: 1.0.4
+ * Version: 1.0.5
  * License: MIT
  */
 
@@ -16,13 +16,14 @@
         const style = document.createElement('style');
         style.id = 'shakeeb-justify-style';
         style.textContent = `
-            table {
+            /* Base table styles - namespaced to avoid conflicts */
+            .shakeeb-justify {
                 border-collapse: collapse;
                 margin: 0 auto;
             }
 
-            .sher, .sher td,
-            .sher2, .sher2 td {
+            /* Common text styles for all poetry elements */
+            .shakeeb-justify td {
                 text-align: justify;
                 text-align-last: justify;
                 direction: rtl;
@@ -30,10 +31,15 @@
                 unicode-bidi: plaintext;
             }
 
-            .sher2 td { width: 46%; }
-            .sher2 tr td:nth-child(2) { width: 10%; }
+            /* Two-column layout widths */
+            .shakeeb-justify.sher2 td { width: 46%; }
+            .shakeeb-justify.sher2 td.spacer-cell { width: 10%; }
 
-            tr.gap td { padding-bottom: 15px; }
+            /* Spacer row for gaps between stanzas */
+            .shakeeb-justify tr.spacer td {
+                height: 15px;
+                padding: 0;
+            }
         `;
         document.head.appendChild(style);
     }
@@ -51,39 +57,61 @@
             .trim();
     }
 
-    /* -------------------- BASIC RENDERERS -------------------- */
+    /* -------------------- SINGLE-COLUMN RENDERER -------------------- */
 
-    function tabulate(str, gapEvery = null) {
+    /**
+     * Renders lines into a single-column table with optional spacer rows.
+     * @param {string} str - Newline-separated lines
+     * @param {number|null} gapEvery - Insert spacer row after every N lines (null = no spacers)
+     * @param {string} tableClass - Additional class for the table (e.g., 'sher', 'mukhammas')
+     * @returns {string} HTML table string
+     */
+    function tabulate(str, gapEvery = null, tableClass = 'sher') {
         if (!str) return '';
 
         const lines = str.split('\n').filter(Boolean);
         let rows = '';
 
         lines.forEach((line, i) => {
-            const gap = gapEvery && (i + 1) % gapEvery === 0;
-            rows += `<tr${gap ? ' class="gap"' : ''}><td>${line}</td></tr>`;
+            rows += `<tr><td>${line}</td></tr>`;
+
+            // Add spacer row after every gapEvery lines
+            if (gapEvery && (i + 1) % gapEvery === 0 && i < lines.length - 1) {
+                rows += `<tr class="spacer"><td></td></tr>`;
+            }
         });
 
-        return `<table class="sher">${rows}</table>`;
+        return `<table class="shakeeb-justify ${tableClass}">${rows}</table>`;
     }
 
-    function tabulate2(str) {
+    /* -------------------- TWO-COLUMN RENDERER -------------------- */
+
+    /**
+     * Renders lines into a two-column table (pairs of lines side by side).
+     * @param {string} str - Newline-separated lines
+     * @param {boolean} addFinalSpacer - Whether to add spacer after the last row
+     * @returns {string} HTML table string
+     */
+    function tabulate2(str, addFinalSpacer = false) {
         if (!str) return '';
 
         const lines = str.split('\n').filter(Boolean);
         let rows = '';
 
         for (let i = 0; i < lines.length; i += 2) {
-            rows += `
-                <tr class="gap">
-                    <td>${lines[i] || ''}</td>
-                    <td></td>
-                    <td>${lines[i + 1] || ''}</td>
-                </tr>
-            `;
+            rows += `<tr>
+                <td>${lines[i] || ''}</td>
+                <td class="spacer-cell"></td>
+                <td>${lines[i + 1] || ''}</td>
+            </tr>`;
+
+            // Add spacer row after each couplet (except the last, unless explicitly requested)
+            if (i + 2 < lines.length || addFinalSpacer) {
+                rows += `<tr class="spacer"><td colspan="3"></td></tr>`;
+            }
         }
 
-        return `<table class="sher2">${rows}</table>`;
+        return `<table class="shakeeb-justify sher2">${rows}</table>`;
     }
 
     /* -------------------- PATTERN HELPERS -------------------- */
@@ -107,14 +135,32 @@
         return groups;
     }
 
-    function renderPattern(el, pattern) {
+    /**
+     * Renders element with pattern-based grouping (single table with spacer rows).
+     * @param {HTMLElement} el - The element to render
+     * @param {number[]} pattern - Array of group sizes, e.g., [4, 2] for musaddas
+     * @param {string} tableClass - Class name for the table
+     */
+    function renderPattern(el, pattern, tableClass = 'sher') {
         const text = extractLines(el);
         const lines = text.split('\n').filter(Boolean);
         const groups = groupLines(lines, pattern);
 
-        el.innerHTML = groups
-            .map(g => tabulate(g.join('\n')))
-            .join('');
+        let rows = '';
+
+        groups.forEach((group, groupIndex) => {
+            // Add each line of the group
+            group.forEach(line => {
+                rows += `<tr><td>${line}</td></tr>`;
+            });
+
+            // Add spacer row after each group (except the last)
+            if (groupIndex < groups.length - 1) {
+                rows += `<tr class="spacer"><td></td></tr>`;
+            }
+        });
+
+        el.innerHTML = `<table class="shakeeb-justify ${tableClass}">${rows}</table>`;
     }
 
     /* -------------------- MIXED LAYOUT -------------------- */
@@ -135,21 +181,49 @@
         });
     }
 
-    function renderMixedAdvanced(el, mixedSpec) {
+    /**
+     * Renders mixed layout (combining 1-col and 2-col sections).
+     * Uses separate tables for different column layouts as they have different structures.
+     * Spacer is handled via margin-bottom on tables.
+     */
+    function renderMixedAdvanced(el, mixedSpec, tableClass = 'mixed') {
         const text = extractLines(el);
         const lines = text.split('\n').filter(Boolean);
 
         let i = 0;
         let html = '';
 
-        mixedSpec.forEach(spec => {
-            const chunk = lines.slice(i, i + spec.count).join('\n');
+        mixedSpec.forEach((spec, specIndex) => {
+            const chunk = lines.slice(i, i + spec.count);
             i += spec.count;
 
+            const isLast = specIndex === mixedSpec.length - 1;
+
             if (spec.mode === '2col') {
-                html += tabulate2(chunk);
+                // Two-column layout
+                let rows = '';
+                for (let j = 0; j < chunk.length; j += 2) {
+                    rows += `<tr>
+                        <td>${chunk[j] || ''}</td>
+                        <td class="spacer-cell"></td>
+                        <td>${chunk[j + 1] || ''}</td>
+                    </tr>`;
+
+                    // Add spacer between couplets within this 2col section
+                    if (j + 2 < chunk.length) {
+                        rows += `<tr class="spacer"><td colspan="3"></td></tr>`;
+                    }
+                }
+
+                html += `<table class="shakeeb-justify sher2"${!isLast ? ' style="margin-bottom: 15px;"' : ''}>${rows}</table>`;
             } else {
-                html += tabulate(chunk);
+                // Single-column layout
+                let rows = '';
+                chunk.forEach((line, lineIndex) => {
+                    rows += `<tr><td>${line}</td></tr>`;
+                });
+
+                html += `<table class="shakeeb-justify ${tableClass}"${!isLast ? ' style="margin-bottom: 15px;"' : ''}>${rows}</table>`;
             }
         });
 
@@ -161,61 +235,62 @@
     function apply() {
         injectStyles();
 
-        /* Base sher */
+        /* Base sher - single column with gap every 2 lines */
         document.querySelectorAll('.sher').forEach(e =>
-            e.innerHTML = tabulate(extractLines(e), 2)
+            e.innerHTML = tabulate(extractLines(e), 2, 'sher')
         );
 
+        /* Base sher2 - two columns */
         document.querySelectorAll('.sher2').forEach(e =>
             e.innerHTML = tabulate2(extractLines(e))
         );
 
-        /* Mukhammas */
+        /* Mukhammas - 5 lines per stanza */
         document.querySelectorAll('.mukhammas').forEach(e =>
-            renderPattern(e, [5])
+            renderPattern(e, [5], 'mukhammas')
         );
 
         document.querySelectorAll('.mukhammas-3-2').forEach(e =>
-            renderPattern(e, [3, 2])
+            renderPattern(e, [3, 2], 'mukhammas')
         );
 
         document.querySelectorAll('.mukhammas-mixed').forEach(e =>
             renderMixedAdvanced(e, [
                 { count: 4, mode: '2col' },
                 { count: 1, mode: '1col' }
-            ])
+            ], 'mukhammas')
         );
 
-        /* Musaddas */
+        /* Musaddas - 6 lines per stanza */
         document.querySelectorAll('.musaddas').forEach(e =>
-            renderPattern(e, [4, 2])
+            renderPattern(e, [4, 2], 'musaddas')
         );
 
         document.querySelectorAll('.musaddas-6').forEach(e =>
-            renderPattern(e, [6])
+            renderPattern(e, [6], 'musaddas')
         );
 
         document.querySelectorAll('.musaddas-mixed').forEach(e =>
             renderMixedAdvanced(e, [
                 { count: 4, mode: '2col' },
                 { count: 2, mode: '1col' }
-            ])
+            ], 'musaddas')
         );
 
-        /* data-pattern override */
+        /* data-pattern override - custom patterns like data-pattern="4+2" */
         document.querySelectorAll('[data-pattern]').forEach(e => {
             const pattern = parsePattern(e.dataset.pattern);
-            if (pattern) renderPattern(e, pattern);
+            if (pattern) renderPattern(e, pattern, 'custom-pattern');
         });
 
-        /* data-mixed override */
+        /* data-mixed override - custom mixed layouts like data-mixed="4:2col,2:1col" */
         document.querySelectorAll('[data-mixed]').forEach(e => {
             const spec = parseMixed(e.dataset.mixed);
-            if (spec) renderMixedAdvanced(e, spec);
+            if (spec) renderMixedAdvanced(e, spec, 'custom-mixed');
         });
 
         console.log(
-            '%cShakeebJustify applied — data-pattern & data-mixed enabled',
+            '%cShakeebJustify v1.0.5 applied — https://shakeeb.in',
             'color: green; font-weight: bold;'
         );
     }
