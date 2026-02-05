@@ -32,6 +32,8 @@ This library formats poetry the way it is **read**, not just displayed.
 - **Intelligent stanza grouping** — automatic gaps between couplets/stanzas
 - **Classical form support** — Ghazal, Qat'a, Mukhammas, Musaddas variants
 - **Custom patterns** — `data-pattern` and `data-mixed` attributes for flexibility
+- **Copy-friendly** — copied text preserves line breaks for pasting
+- **Optional copy buttons** — opt-in clipboard buttons for poems/lines
 - **WordPress/Gutenberg compatible**
 - **No dependencies**
 
@@ -42,7 +44,7 @@ This library formats poetry the way it is **read**, not just displayed.
 ### CDN (Recommended)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.5/dist/shakeeb-justify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.6/dist/shakeeb-justify.min.js"></script>
 ```
 
 ### NPM
@@ -196,6 +198,25 @@ Combine single-column and two-column layouts.
 
 ---
 
+## Copy Buttons (Opt-in)
+
+Enable copy-to-clipboard functionality with the `data-copy` attribute. Buttons appear on hover (or tap on mobile).
+
+```html
+<!-- Copy all button (top-left of poem) -->
+<div class="sher" data-copy="all">...</div>
+
+<!-- Per-line copy buttons (appear on row hover) -->
+<div class="sher" data-copy="row">...</div>
+
+<!-- Both buttons -->
+<div class="sher" data-copy="both">...</div>
+```
+
+**Note:** Even without copy buttons, poetry copied from this library preserves proper line breaks.
+
+---
+
 ## Markup Flexibility
 
 The library normalizes HTML before processing. You can use:
@@ -236,6 +257,11 @@ npm run build
 ---
 
 ## Version History
+
+### 1.0.6
+- **Copy-friendly output** — hidden newlines ensure copied text has proper line breaks
+- **Copy buttons** — opt-in `data-copy` attribute for clipboard functionality
+- **RSS/plain-text friendly** — line breaks preserved when HTML is stripped
 
 ### 1.0.5
 - **Namespaced CSS** — all styles under `.shakeeb-justify` to prevent conflicts

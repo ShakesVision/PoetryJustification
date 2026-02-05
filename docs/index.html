@@ -85,6 +85,7 @@
                 <a href="#musaddas" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Musaddas</a>
                 <a href="#mukhammas" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Mukhammas</a>
                 <a href="#custom" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Custom Patterns</a>
+                <a href="#copy" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Copy Buttons</a>
             </div>
         </div>
     </nav>
@@ -431,6 +432,58 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Copy Buttons -->
+        <section id="copy">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Copy Buttons (Opt-in)</h2>
+            
+            <p class="text-gray-600 mb-6">
+                Enable copy-to-clipboard functionality with the <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-copy</code> attribute.
+                Buttons appear on hover (or tap on mobile). Poetry is copied with proper line breaks.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">Copy All</h3>
+                    <p class="text-sm text-gray-500 mb-3">Single button to copy entire poem</p>
+                    <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="all"</code></pre>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">Copy Row</h3>
+                    <p class="text-sm text-gray-500 mb-3">Per-line copy buttons on hover</p>
+                    <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="row"</code></pre>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">Both</h3>
+                    <p class="text-sm text-gray-500 mb-3">All + row buttons</p>
+                    <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="both"</code></pre>
+                </div>
+            </div>
+
+            <!-- Live Example with Copy -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                    <h3 class="font-semibold text-gray-900">Live Example</h3>
+                    <p class="text-sm text-gray-500 mt-1">Hover over the poem to see the copy button</p>
+                </div>
+                <div class="p-4 bg-gray-900 border-b border-gray-700">
+                    <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="sher" data-copy="all"&gt;...&lt;/div&gt;</code></pre>
+                </div>
+                <div class="p-8 poetry-text" dir="rtl">
+                    <div class="sher" data-copy="all">
+                        پروانے کو چراغ ہے ، بلبل کو پھول بس
+                        صدیق کے لئے ہے خدا کا رسول بس
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <p class="text-sm text-gray-600">
+                    <strong>Note:</strong> When you copy poetry from this library (even without copy buttons), 
+                    lines are preserved with proper line breaks for pasting into other applications.
+                </p>
             </div>
         </section>
 

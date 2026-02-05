@@ -1,6 +1,6 @@
 {
   "name": "shakeeb-justify",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Urdu poetry justification utility by Shakeeb Ahmad",
   "main": "dist/shakeeb-justify.min.js",
   "scripts": {
