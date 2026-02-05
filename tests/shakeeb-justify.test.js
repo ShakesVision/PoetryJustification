@@ -204,6 +204,27 @@ describe('ShakeebJustify', () => {
             expect(tables[1].querySelectorAll('tr:not(.spacer)').length).toBe(2);
         });
 
+        test('CRITICAL: No spacer rows WITHIN 2-col blocks in mixed layouts', () => {
+            document.body.innerHTML = `
+                <div class="musaddas-mixed">
+                    Line 1
+                    Line 2
+                    Line 3
+                    Line 4
+                    Line 5
+                    Line 6
+                </div>
+            `;
+
+            ShakeebJustify.apply();
+
+            const tables = document.querySelectorAll('.shakeeb-justify');
+            
+            // First table (2-col) should have NO spacer rows
+            const spacersIn2col = tables[0].querySelectorAll('tr.spacer');
+            expect(spacersIn2col.length).toBe(0);
+        });
+
         test('CRITICAL: .musaddas-mixed REPEATS pattern for long poems', () => {
             // This was the bug we fixed!
             document.body.innerHTML = `

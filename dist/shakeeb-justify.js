@@ -2,7 +2,7 @@
  * ShakeebJustify (Poetry Justification for Urdu / Nastaliq)
  * Author: Shakeeb Ahmad
  * Website: https://shakeeb.in
- * Version: 1.0.8
+ * Version: 1.0.9
  * License: MIT
  */
 
@@ -180,9 +180,9 @@
                 var isLastChunk = lineIndex >= lines.length && specIndex === specs.length - 1;
 
                 if (spec.mode === '2col') {
+                    // No spacers between pairs within a mixed block - gap is handled by margin-bottom between tables
                     for (var j = 0; j < chunk.length; j += 2) {
                         rows += doubleRow(chunk[j], chunk[j + 1]);
-                        if (j + 2 < chunk.length) rows += spacerRow(true);
                     }
                     html += '<table class="shakeeb-justify sher2"' + (isLastChunk ? '' : ' style="margin-bottom:15px"') + '>' + rows + '</table>';
                 } else {
@@ -335,7 +335,7 @@
             }, 0);
         });
 
-        console.log('%cShakeebJustify v1.0.8 — https://shakeeb.in', 'color: green; font-weight: bold');
+        console.log('%cShakeebJustify v1.0.9 — https://shakeeb.in', 'color: green; font-weight: bold');
     }
 
     // Export

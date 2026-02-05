@@ -45,12 +45,12 @@ This library formats poetry the way it is **read**, not just displayed.
 
 **Via npm (recommended):**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.8/dist/shakeeb-justify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.9/dist/shakeeb-justify.min.js"></script>
 ```
 
 **Via GitHub:**
 ```html
-<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.8/dist/shakeeb-justify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.9/dist/shakeeb-justify.min.js"></script>
 ```
 
 ### NPM
@@ -273,6 +273,9 @@ All tests must pass before pushing changes to the repository.
 ---
 
 ## Version History
+
+### 1.0.9
+- **Fixed spacer in mixed layouts** — no spacer rows within 2-col blocks, gap only between blocks
 
 ### 1.0.8
 - **Fixed mixed pattern repeating** — `.musaddas-mixed`, `.mukhammas-mixed`, and `data-mixed` now correctly repeat for long poems
