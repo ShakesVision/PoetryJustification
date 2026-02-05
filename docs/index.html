@@ -1,583 +1,604 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShakeebJustify — Poetry Justification for Urdu</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Nastaliq Font -->
-    <link href='https://fonts.googleapis.com/earlyaccess/notonastaliqurdudraft.css' rel='stylesheet'>
-    
-    <!-- Monospace for code -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        nastaliq: ["'Jameel Noori Nastaleeq'", "'Alvi Nastaleeq'", "'Noto Nastaliq Urdu Draft'", "serif"],
-                        mono: ["'JetBrains Mono'", "monospace"],
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShakeebJustify — Poetry Justification for Urdu</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Nastaliq Font -->
+  <link href='https://fonts.googleapis.com/earlyaccess/notonastaliqurdudraft.css' rel='stylesheet'>
+
+  <!-- Monospace for code -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            nastaliq: ["'Jameel Noori Nastaleeq'", "'Alvi Nastaleeq'", "'Noto Nastaliq Urdu Draft'", "serif"],
+            mono: ["'JetBrains Mono'", "monospace"],
+          }
         }
-    </script>
-    
-    <style>
-        /* Poetry text styling */
-        .poetry-text {
-            font-family: 'Jameel Noori Nastaleeq', 'Alvi Nastaleeq', 'Noto Nastaliq Urdu Draft', serif;
-            font-size: 1.25rem;
-            line-height: 2;
-        }
-        
-        /* Code block styling */
-        pre code {
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    /* Poetry text styling */
+    .poetry-text {
+      font-family: 'Jameel Noori Nastaleeq', 'Alvi Nastaleeq', 'Noto Nastaliq Urdu Draft', serif;
+      font-size: 1.25rem;
+      line-height: 2;
+    }
+
+    /* Code block styling */
+    pre code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 
 <body class="bg-white text-gray-900 antialiased" dir="ltr">
 
-    <!-- Hero Section -->
-    <header class="bg-gradient-to-b from-gray-50 to-white border-b border-gray-200">
-        <div class="max-w-5xl mx-auto px-6 py-16 text-center">
-            <h1 class="text-5xl font-bold tracking-tight text-gray-900 mb-4">
-                ShakeebJustify
-            </h1>
-            <p class="text-xl text-gray-600 mb-6">
-                Poetry Justification for Urdu / Nastaliq
-            </p>
-            <p class="text-gray-500 max-w-2xl mx-auto mb-8">
-                A lightweight JavaScript library that automatically formats Urdu poetry into beautifully justified layouts. 
-                Supports classical poetic forms including Ghazal, Qat'a, Mukhammas, and Musaddas.
-            </p>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="https://www.npmjs.com/package/shakeeb-justify" 
-                   class="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                    <span>View on NPM</span>
-                </a>
-                <a href="https://github.com/ShakesVision/PoetryJustification" 
-                   class="inline-flex items-center px-5 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span>GitHub</span>
-                </a>
-            </div>
-        </div>
-    </header>
+  <!-- Hero Section -->
+  <header class="bg-gradient-to-b from-gray-50 to-white border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-6 py-16 text-center">
+      <h1 class="text-5xl font-bold tracking-tight text-gray-900 mb-4">
+        ShakeebJustify
+      </h1>
+      <p class="text-xl text-gray-600 mb-6">
+        Poetry Justification for Urdu / Nastaliq
+      </p>
+      <p class="text-gray-500 max-w-2xl mx-auto mb-8">
+        A lightweight JavaScript library that automatically formats Urdu poetry into beautifully justified layouts.
+        Supports classical poetic forms including Ghazal, Qat'a, Mukhammas, and Musaddas.
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="https://www.npmjs.com/package/shakeeb-justify"
+          class="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+          <span>View on NPM</span>
+        </a>
+        <a href="https://github.com/ShakesVision/PoetryJustification"
+          class="inline-flex items-center px-5 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 bg-white/95 backdrop-blur border-b border-gray-100 z-50">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="flex gap-8 overflow-x-auto py-4 text-sm">
-                <a href="#installation" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Installation</a>
-                <a href="#sher" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Single Column</a>
-                <a href="#sher2" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Two Columns</a>
-                <a href="#musaddas" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Musaddas</a>
-                <a href="#mukhammas" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Mukhammas</a>
-                <a href="#custom" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Custom Patterns</a>
-                <a href="#copy" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Copy Buttons</a>
-            </div>
-        </div>
-    </nav>
+  <!-- Navigation -->
+  <nav class="sticky top-0 bg-white/95 backdrop-blur border-b border-gray-100 z-50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex gap-8 overflow-x-auto py-4 text-sm">
+        <a href="#installation" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Installation</a>
+        <a href="#sher" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Single Column</a>
+        <a href="#sher2" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Two Columns</a>
+        <a href="#musaddas" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Musaddas</a>
+        <a href="#mukhammas" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Mukhammas</a>
+        <a href="#custom" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Custom Patterns</a>
+        <a href="#copy" class="text-gray-600 hover:text-gray-900 whitespace-nowrap">Copy Buttons</a>
+      </div>
+    </div>
+  </nav>
 
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
+  <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
 
-        <!-- Installation -->
-        <section id="installation">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Installation</h2>
-            
-            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">CDN (Recommended)</h3>
-                <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.9/dist/shakeeb-justify.min.js"&gt;&lt;/script&gt;</code></pre>
-            </div>
-            
-            <p class="text-gray-600 mt-4">
-                The library runs automatically on page load. For dynamic content, call <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">ShakeebJustify.apply()</code>
-            </p>
-        </section>
+    <!-- Installation -->
+    <section id="installation">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Installation</h2>
 
-        <!-- Single Column (.sher) -->
-        <section id="sher">
-            <div class="flex items-center gap-3 mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">Single Column</h2>
-                <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full font-mono">.sher</span>
-            </div>
-            
-            <p class="text-gray-600 mb-6">
-                Standard ghazal layout — one line per row with automatic gap after every couplet (2 lines). 
-                Each line is fully justified for that classic printed poetry look.
-            </p>
+      <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+        <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">CDN (Recommended)</h3>
+        <pre
+          class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.9/dist/shakeeb-justify.min.js"&gt;&lt;/script&gt;</code></pre>
+      </div>
 
-            <!-- Code Example -->
-            <div class="mb-6">
-                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">HTML</h3>
-                <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;div class="sher"&gt;
+      <p class="text-gray-600 mt-4">
+        The library runs automatically on page load. For dynamic content, call <code
+          class="bg-gray-100 px-2 py-0.5 rounded text-sm">ShakeebJustify.apply()</code>
+      </p>
+    </section>
+
+    <!-- Single Column (.sher) -->
+    <section id="sher">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Single Column</h2>
+        <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full font-mono">.sher</span>
+      </div>
+
+      <p class="text-gray-600 mb-6">
+        Standard ghazal layout — one line per row with automatic gap after every couplet (2 lines).
+        Each line is fully justified for that classic printed poetry look.
+      </p>
+
+      <!-- Code Example -->
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">HTML</h3>
+        <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;div class="sher"&gt;
 ہم پہ ساقی کی عنایت سے جلے جاتے ہیں
 یہ جو اَب تک کفِ افسوس ملے جاتے ہیں
 یاد آ جاتی ہیں بے ساختہ باتیں ان کی
 بے سبب ہونٹ تبسم میں ڈھلے جاتے ہیں
 &lt;/div&gt;</code></pre>
-            </div>
+      </div>
 
-            <!-- Live Example -->
-            <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Result</span>
-                </div>
-                <div class="p-8 poetry-text" dir="rtl">
-                    <div class="text-center mb-4">
-                        <h3 class="text-lg font-bold">غزل</h3>
-                        <p class="text-gray-600 text-sm">شکیبؔ احمد</p>
-                    </div>
-                    <div class="sher">
-                        ہم پہ ساقی کی عنایت سے جلے جاتے ہیں
-                        یہ جو اَب تک کفِ افسوس ملے جاتے ہیں
-                        یاد آ جاتی ہیں بے ساختہ باتیں ان کی
-                        بے سبب ہونٹ تبسم میں ڈھلے جاتے ہیں
-                        وقتِ رخصت کی پس و پیش انہیں کیا معلوم
-                        دل رکا جاتا ہے جانے سے ولے جاتے ہیں
-                        رفتہ رفتہ دمِ آخیر بھی آ پہنچے گا
-                        رات دن وصل کے وعدوں پہ ٹلے جاتے ہیں
-                        جائیے کچھ نہیں کہتے، جو ہوا ہے سو ہوا
-                        سارے الزام مقدر کے گلے جاتے ہیں
-                        ضبطِ گریہ میں شکیبؔ آپ نے پایا ہے کمال
-                        ان کی گلیوں سے بھی چپ چاپ چلے جاتے ہیں
-                    </div>
-                </div>
-            </div>
-        </section>
+      <!-- Live Example -->
+      <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Result</span>
+        </div>
+        <div class="p-8 poetry-text" dir="rtl">
+          <div class="text-center mb-4">
+            <h3 class="text-lg font-bold">غزل</h3>
+            <p class="text-gray-600 text-sm">شکیبؔ احمد</p>
+          </div>
+          <div class="sher">
+            ہم پہ ساقی کی عنایت سے جلے جاتے ہیں
+            یہ جو اَب تک کفِ افسوس ملے جاتے ہیں
+            یاد آ جاتی ہیں بے ساختہ باتیں ان کی
+            بے سبب ہونٹ تبسم میں ڈھلے جاتے ہیں
+            وقتِ رخصت کی پس و پیش انہیں کیا معلوم
+            دل رکا جاتا ہے جانے سے ولے جاتے ہیں
+            رفتہ رفتہ دمِ آخیر بھی آ پہنچے گا
+            رات دن وصل کے وعدوں پہ ٹلے جاتے ہیں
+            جائیے کچھ نہیں کہتے، جو ہوا ہے سو ہوا
+            سارے الزام مقدر کے گلے جاتے ہیں
+            ضبطِ گریہ میں شکیبؔ آپ نے پایا ہے کمال
+            ان کی گلیوں سے بھی چپ چاپ چلے جاتے ہیں
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Two Columns (.sher2) -->
-        <section id="sher2">
-            <div class="flex items-center gap-3 mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">Two Columns</h2>
-                <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full font-mono">.sher2</span>
-            </div>
-            
-            <p class="text-gray-600 mb-6">
-                Side-by-side layout — each couplet's two lines displayed in adjacent columns. 
-                Perfect for longer nazms and qasidas where horizontal space is available.
-            </p>
+    <!-- Two Columns (.sher2) -->
+    <section id="sher2">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Two Columns</h2>
+        <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full font-mono">.sher2</span>
+      </div>
 
-            <!-- Code Example -->
-            <div class="mb-6">
-                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">HTML</h3>
-                <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;div class="sher2"&gt;
+      <p class="text-gray-600 mb-6">
+        Side-by-side layout — each couplet's two lines displayed in adjacent columns.
+        Perfect for longer nazms and qasidas where horizontal space is available.
+      </p>
+
+      <!-- Code Example -->
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">HTML</h3>
+        <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;div class="sher2"&gt;
 اِک دن رسولِ پاک نے اصحاب سے کہا
 دیں مال راہِ حق میں جو ہوں تم میں مالدار
 ...
 &lt;/div&gt;</code></pre>
-            </div>
+      </div>
 
-            <!-- Live Example -->
-            <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Result</span>
-                </div>
-                <div class="p-8 poetry-text" dir="rtl">
-                    <div class="text-center mb-4">
-                        <h3 class="text-lg font-bold">صدیق</h3>
-                        <p class="text-gray-600 text-sm">علامہ اقبالؔ</p>
-                    </div>
-                    <div class="sher2">
-                        اِک دن رسولِ پاک نے اصحاب سے کہا
-                        دیں مال راہِ حق میں جو ہوں تم میں مالدار
-                        ارشاد سن کے فرطِ طرب سے عمر اٹھے
-                        اس روز انکے پاس تھے درہم کئی ہزار
-                        دل میں یہ کہہ رہے تھے کہ صدیق سے ضرور
-                        بڑھ کر رکھے گا آج قدم میرا راہوار
-                        لائے غرض کہ مال رسولِ امیں کے پاس
-                        ایثار کی ہے دست نگر ابتدائے کار
-                        پوچھا حضور وسرورِ عالم نے ، اے عمر !
-                        اے وہ کہ جوشِ حق سے ترے دل کو ہے قرار
-                        رکھا ہے کچھ عیال کی خاطر بھی تو نے کیا؟
-                        مسلم ہے اپنے خویش و اقارب کا حق گذار
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Musaddas Section -->
-        <section id="musaddas">
-            <div class="flex items-center gap-3 mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">Musaddas</h2>
-                <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full">6-line stanzas</span>
-            </div>
-            
-            <p class="text-gray-600 mb-8">
-                The musaddas is a 6-line poetic form, often used in elegies (marsiya). 
-                ShakeebJustify supports three layout variants for different visual effects.
-            </p>
-
-            <!-- Musaddas Classic (4+2) -->
-            <div class="space-y-8">
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <div class="flex items-center gap-3">
-                            <h3 class="font-semibold text-gray-900">Classic (4+2)</h3>
-                            <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.musaddas</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1">Gap after 4 lines, then 2 lines</p>
-                    </div>
-                    <div class="p-4 bg-gray-900 border-b border-gray-700">
-                        <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="musaddas"&gt;...&lt;/div&gt;</code></pre>
-                    </div>
-                    <div class="p-8 poetry-text" dir="rtl">
-                        <div class="musaddas">
-                            اس قدر شوخ کہ اللہ سے بھی برہم ہے
-                            تھا جو مسجود ملائک یہ وہی آدم ہے
-                            عالم کیف ہے دانائے رموز کم ہے
-                            ہاں مگر عجز کے اسرار سے نامحرم ہے
-                            ناز ہے طاقت گفتار پہ انسانوں کو
-                            بات کرنے کا سلیقہ نہیں نادانوں کو
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Musaddas All 6 -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <div class="flex items-center gap-3">
-                            <h3 class="font-semibold text-gray-900">All 6 Together</h3>
-                            <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.musaddas-6</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1">Continuous flow, single unit — gap after 6 lines</p>
-                    </div>
-                    <div class="p-4 bg-gray-900 border-b border-gray-700">
-                        <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="musaddas-6"&gt;...&lt;/div&gt;</code></pre>
-                    </div>
-                    <div class="p-8 poetry-text" dir="rtl">
-                        <div class="musaddas-6">
-                            اس قدر شوخ کہ اللہ سے بھی برہم ہے
-                            تھا جو مسجود ملائک یہ وہی آدم ہے
-                            عالم کیف ہے دانائے رموز کم ہے
-                            ہاں مگر عجز کے اسرار سے نامحرم ہے
-                            ناز ہے طاقت گفتار پہ انسانوں کو
-                            بات کرنے کا سلیقہ نہیں نادانوں کو
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Musaddas Mixed -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <div class="flex items-center gap-3">
-                            <h3 class="font-semibold text-gray-900">Mixed Layout</h3>
-                            <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.musaddas-mixed</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1">4 lines in 2-column + 2 lines in 1-column — marsiya-style emphasis</p>
-                    </div>
-                    <div class="p-4 bg-gray-900 border-b border-gray-700">
-                        <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="musaddas-mixed"&gt;...&lt;/div&gt;</code></pre>
-                    </div>
-                    <div class="p-8 poetry-text" dir="rtl">
-                        <div class="musaddas-mixed">
-                            اس قدر شوخ کہ اللہ سے بھی برہم ہے
-                            تھا جو مسجود ملائک یہ وہی آدم ہے
-                            عالم کیف ہے دانائے رموز کم ہے
-                            ہاں مگر عجز کے اسرار سے نامحرم ہے
-                            ناز ہے طاقت گفتار پہ انسانوں کو
-                            بات کرنے کا سلیقہ نہیں نادانوں کو
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Mukhammas Section -->
-        <section id="mukhammas">
-            <div class="flex items-center gap-3 mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">Mukhammas</h2>
-                <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full">5-line stanzas</span>
-            </div>
-            
-            <p class="text-gray-600 mb-8">
-                The mukhammas is a 5-line poetic form. ShakeebJustify supports multiple layout variants.
-            </p>
-
-            <div class="space-y-8">
-                <!-- Mukhammas Standard -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <div class="flex items-center gap-3">
-                            <h3 class="font-semibold text-gray-900">Standard</h3>
-                            <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.mukhammas</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1">Gap after every 5 lines</p>
-                    </div>
-                    <div class="p-4 bg-gray-900 border-b border-gray-700">
-                        <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="mukhammas"&gt;...&lt;/div&gt;</code></pre>
-                    </div>
-                    <div class="p-8 poetry-text" dir="rtl">
-                        <div class="mukhammas">
-                            خوگر قربت و دیدار پہ کیسی گزرے
-                            کیا خبر اس کے دل زار پہ کیسی گزرے
-                            ہجر میں اس ترے بیمار پہ کیسی گزرے
-                            دور کیا جانیے بد کار پہ کیسی گزرے
-                            تیرے ہی در پہ مرے بیکس و تنہا تیرا
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mukhammas 3+2 -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <div class="flex items-center gap-3">
-                            <h3 class="font-semibold text-gray-900">3+2 Pattern</h3>
-                            <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.mukhammas-3-2</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1">Gap after 3 lines, then 2 lines</p>
-                    </div>
-                    <div class="p-4 bg-gray-900 border-b border-gray-700">
-                        <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="mukhammas-3-2"&gt;...&lt;/div&gt;</code></pre>
-                    </div>
-                    <div class="p-8 poetry-text" dir="rtl">
-                        <div class="mukhammas-3-2">
-                            خوگر قربت و دیدار پہ کیسی گزرے
-                            کیا خبر اس کے دل زار پہ کیسی گزرے
-                            ہجر میں اس ترے بیمار پہ کیسی گزرے
-                            دور کیا جانیے بد کار پہ کیسی گزرے
-                            تیرے ہی در پہ مرے بیکس و تنہا تیرا
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mukhammas Mixed -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <div class="flex items-center gap-3">
-                            <h3 class="font-semibold text-gray-900">Mixed Layout</h3>
-                            <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.mukhammas-mixed</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1">4 lines in 2-column + 1 line in 1-column — strong closing emphasis</p>
-                    </div>
-                    <div class="p-4 bg-gray-900 border-b border-gray-700">
-                        <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="mukhammas-mixed"&gt;...&lt;/div&gt;</code></pre>
-                    </div>
-                    <div class="p-8 poetry-text" dir="rtl">
-                        <div class="mukhammas-mixed">
-                            خوگر قربت و دیدار پہ کیسی گزرے
-                            کیا خبر اس کے دل زار پہ کیسی گزرے
-                            ہجر میں اس ترے بیمار پہ کیسی گزرے
-                            دور کیا جانیے بد کار پہ کیسی گزرے
-                            تیرے ہی در پہ مرے بیکس و تنہا تیرا
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Custom Patterns -->
-        <section id="custom">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Custom Patterns</h2>
-            
-            <p class="text-gray-600 mb-8">
-                For poetic forms not covered by the built-in classes, use <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-pattern</code> 
-                and <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-mixed</code> attributes.
-            </p>
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- data-pattern -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h3 class="font-semibold text-gray-900">data-pattern</h3>
-                        <p class="text-sm text-gray-500 mt-1">Define custom grouping patterns</p>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div>
-                            <p class="text-sm text-gray-600 mb-2">Gap after every 4 lines (Qat'a):</p>
-                            <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-pattern="4"&gt;...&lt;/div&gt;</code></pre>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-600 mb-2">Gap after 3, then 2 (repeating):</p>
-                            <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-pattern="3+2"&gt;...&lt;/div&gt;</code></pre>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-600 mb-2">Gap after 7 lines:</p>
-                            <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-pattern="7"&gt;...&lt;/div&gt;</code></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- data-mixed -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h3 class="font-semibold text-gray-900">data-mixed</h3>
-                        <p class="text-sm text-gray-500 mt-1">Combine 1-column and 2-column layouts</p>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div>
-                            <p class="text-sm text-gray-600 mb-2">4 lines 2-col, then 2 lines 1-col:</p>
-                            <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-mixed="4:2col,2:1col"&gt;...&lt;/div&gt;</code></pre>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-600 mb-2">3 lines 1-col, then 2 lines 2-col:</p>
-                            <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-mixed="3:1col,2:2col"&gt;...&lt;/div&gt;</code></pre>
-                        </div>
-                        <div class="pt-2 border-t border-gray-200">
-                            <p class="text-xs text-gray-500">
-                                <strong>Modes:</strong> <code class="bg-gray-100 px-1 rounded">1col</code> = single column, 
-                                <code class="bg-gray-100 px-1 rounded">2col</code> = two columns
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Copy Buttons -->
-        <section id="copy">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Copy Buttons (Opt-in)</h2>
-            
-            <p class="text-gray-600 mb-6">
-                Enable copy-to-clipboard functionality with the <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-copy</code> attribute.
-                Buttons appear on hover (or tap on mobile). Poetry is copied with proper line breaks.
-            </p>
-
-            <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
-                    <h3 class="font-semibold text-gray-900 mb-2">Copy All</h3>
-                    <p class="text-sm text-gray-500 mb-3">Single button to copy entire poem</p>
-                    <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="all"</code></pre>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
-                    <h3 class="font-semibold text-gray-900 mb-2">Copy Row</h3>
-                    <p class="text-sm text-gray-500 mb-3">Per-line copy buttons on hover</p>
-                    <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="row"</code></pre>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
-                    <h3 class="font-semibold text-gray-900 mb-2">Both</h3>
-                    <p class="text-sm text-gray-500 mb-3">All + row buttons</p>
-                    <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="both"</code></pre>
-                </div>
-            </div>
-
-            <!-- Live Example with Copy -->
-            <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                    <h3 class="font-semibold text-gray-900">Live Example</h3>
-                    <p class="text-sm text-gray-500 mt-1">Hover over the poem to see the copy button</p>
-                </div>
-                <div class="p-4 bg-gray-900 border-b border-gray-700">
-                    <pre class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="sher" data-copy="all"&gt;...&lt;/div&gt;</code></pre>
-                </div>
-                <div class="p-8 poetry-text" dir="rtl">
-                    <div class="sher" data-copy="all">
-                        پروانے کو چراغ ہے ، بلبل کو پھول بس
-                        صدیق کے لئے ہے خدا کا رسول بس
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p class="text-sm text-gray-600">
-                    <strong>Note:</strong> When you copy poetry from this library (even without copy buttons), 
-                    lines are preserved with proper line breaks for pasting into other applications.
-                </p>
-            </div>
-        </section>
-
-        <!-- Quick Reference -->
-        <section class="bg-gray-50 rounded-xl border border-gray-200 p-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">Quick Reference</h2>
-            
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead>
-                        <tr class="border-b border-gray-300">
-                            <th class="py-3 pr-4 font-semibold text-gray-900">Class</th>
-                            <th class="py-3 pr-4 font-semibold text-gray-900">Layout</th>
-                            <th class="py-3 font-semibold text-gray-900">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-600">
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.sher</td>
-                            <td class="py-3 pr-4">1-column</td>
-                            <td class="py-3">Gap after every 2 lines</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.sher2</td>
-                            <td class="py-3 pr-4">2-column</td>
-                            <td class="py-3">Pairs displayed side by side</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.mukhammas</td>
-                            <td class="py-3 pr-4">1-column</td>
-                            <td class="py-3">Gap after every 5 lines</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.mukhammas-3-2</td>
-                            <td class="py-3 pr-4">1-column</td>
-                            <td class="py-3">Gap after 3, then 2 lines</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.mukhammas-mixed</td>
-                            <td class="py-3 pr-4">Mixed</td>
-                            <td class="py-3">4 lines 2-col + 1 line 1-col</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.musaddas</td>
-                            <td class="py-3 pr-4">1-column</td>
-                            <td class="py-3">Gap after 4, then 2 lines</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.musaddas-6</td>
-                            <td class="py-3 pr-4">1-column</td>
-                            <td class="py-3">Gap after every 6 lines</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-3 pr-4 font-mono text-gray-800">.musaddas-mixed</td>
-                            <td class="py-3 pr-4">Mixed</td>
-                            <td class="py-3">4 lines 2-col + 2 lines 1-col</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 bg-gray-100/50">
-                            <td class="py-3 pr-4 font-mono text-gray-800">data-pattern="N"</td>
-                            <td class="py-3 pr-4">1-column</td>
-                            <td class="py-3">Custom grouping, e.g. <code class="bg-gray-200 px-1 rounded text-xs">4</code>, <code class="bg-gray-200 px-1 rounded text-xs">3+2</code>, <code class="bg-gray-200 px-1 rounded text-xs">5+1</code></td>
-                        </tr>
-                        <tr class="bg-gray-100/50">
-                            <td class="py-3 pr-4 font-mono text-gray-800">data-mixed="..."</td>
-                            <td class="py-3 pr-4">Mixed</td>
-                            <td class="py-3">Custom layout, e.g. <code class="bg-gray-200 px-1 rounded text-xs">4:2col,2:1col</code></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-200 mt-16">
-        <div class="max-w-5xl mx-auto px-6 py-12 text-center">
-            <p class="text-gray-600 mb-2">
-                Created by <a href="https://shakeeb.in" class="text-gray-900 hover:underline font-medium">Shakeeb Ahmad</a>
-            </p>
-            <p class="text-gray-400 text-sm">
-                MIT License &copy; 2020-2026
-            </p>
-            <p class="text-gray-400 text-sm mt-4">
-                <a href="https://ur.shakeeb.in" class="hover:text-gray-600">Urdu Blog</a>
-                <span class="mx-2">·</span>
-                <a href="https://github.com/ShakesVision/PoetryJustification" class="hover:text-gray-600">GitHub</a>
-                <span class="mx-2">·</span>
-                <a href="https://www.npmjs.com/package/shakeeb-justify" class="hover:text-gray-600">NPM</a>
-            </p>
+      <!-- Live Example -->
+      <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Result</span>
         </div>
-    </footer>
+        <div class="p-8 poetry-text" dir="rtl">
+          <div class="text-center mb-4">
+            <h3 class="text-lg font-bold">صدیق</h3>
+            <p class="text-gray-600 text-sm">علامہ اقبالؔ</p>
+          </div>
+          <div class="sher2">
+            اِک دن رسولِ پاک نے اصحاب سے کہا
+            دیں مال راہِ حق میں جو ہوں تم میں مالدار
+            ارشاد سن کے فرطِ طرب سے عمر اٹھے
+            اس روز انکے پاس تھے درہم کئی ہزار
+            دل میں یہ کہہ رہے تھے کہ صدیق سے ضرور
+            بڑھ کر رکھے گا آج قدم میرا راہوار
+            لائے غرض کہ مال رسولِ امیں کے پاس
+            ایثار کی ہے دست نگر ابتدائے کار
+            پوچھا حضور وسرورِ عالم نے ، اے عمر !
+            اے وہ کہ جوشِ حق سے ترے دل کو ہے قرار
+            رکھا ہے کچھ عیال کی خاطر بھی تو نے کیا؟
+            مسلم ہے اپنے خویش و اقارب کا حق گذار
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- ShakeebJustify Script -->
-    <script src="../dist/shakeeb-justify.js"></script>
+    <!-- Musaddas Section -->
+    <section id="musaddas">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Musaddas</h2>
+        <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full">6-line stanzas</span>
+      </div>
+
+      <p class="text-gray-600 mb-8">
+        The musaddas is a 6-line poetic form, often used in elegies (marsiya).
+        ShakeebJustify supports three layout variants for different visual effects.
+      </p>
+
+      <!-- Musaddas Classic (4+2) -->
+      <div class="space-y-8">
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold text-gray-900">Classic (4+2)</h3>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.musaddas</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Gap after 4 lines, then 2 lines</p>
+          </div>
+          <div class="p-4 bg-gray-900 border-b border-gray-700">
+            <pre
+              class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="musaddas"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+          <div class="p-8 poetry-text" dir="rtl">
+            <div class="musaddas">
+              اس قدر شوخ کہ اللہ سے بھی برہم ہے
+              تھا جو مسجود ملائک یہ وہی آدم ہے
+              عالم کیف ہے دانائے رموز کم ہے
+              ہاں مگر عجز کے اسرار سے نامحرم ہے
+              ناز ہے طاقت گفتار پہ انسانوں کو
+              بات کرنے کا سلیقہ نہیں نادانوں کو
+            </div>
+          </div>
+        </div>
+
+        <!-- Musaddas All 6 -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold text-gray-900">All 6 Together</h3>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.musaddas-6</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Continuous flow, single unit — gap after 6 lines</p>
+          </div>
+          <div class="p-4 bg-gray-900 border-b border-gray-700">
+            <pre
+              class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="musaddas-6"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+          <div class="p-8 poetry-text" dir="rtl">
+            <div class="musaddas-6">
+              اس قدر شوخ کہ اللہ سے بھی برہم ہے
+              تھا جو مسجود ملائک یہ وہی آدم ہے
+              عالم کیف ہے دانائے رموز کم ہے
+              ہاں مگر عجز کے اسرار سے نامحرم ہے
+              ناز ہے طاقت گفتار پہ انسانوں کو
+              بات کرنے کا سلیقہ نہیں نادانوں کو
+            </div>
+          </div>
+        </div>
+
+        <!-- Musaddas Mixed -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold text-gray-900">Mixed Layout</h3>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.musaddas-mixed</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">4 lines in 2-column + 2 lines in 1-column — marsiya-style emphasis</p>
+          </div>
+          <div class="p-4 bg-gray-900 border-b border-gray-700">
+            <pre
+              class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="musaddas-mixed"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+          <div class="p-8 poetry-text" dir="rtl">
+            <div class="musaddas-mixed">
+              اس قدر شوخ کہ اللہ سے بھی برہم ہے
+              تھا جو مسجود ملائک یہ وہی آدم ہے
+              عالم کیف ہے دانائے رموز کم ہے
+              ہاں مگر عجز کے اسرار سے نامحرم ہے
+              ناز ہے طاقت گفتار پہ انسانوں کو
+              بات کرنے کا سلیقہ نہیں نادانوں کو
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mukhammas Section -->
+    <section id="mukhammas">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Mukhammas</h2>
+        <span class="px-2.5 py-0.5 bg-gray-100 text-gray-700 text-sm rounded-full">5-line stanzas</span>
+      </div>
+
+      <p class="text-gray-600 mb-8">
+        The mukhammas is a 5-line poetic form. ShakeebJustify supports multiple layout variants.
+      </p>
+
+      <div class="space-y-8">
+        <!-- Mukhammas Standard -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold text-gray-900">Standard</h3>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.mukhammas</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Gap after every 5 lines</p>
+          </div>
+          <div class="p-4 bg-gray-900 border-b border-gray-700">
+            <pre
+              class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="mukhammas"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+          <div class="p-8 poetry-text" dir="rtl">
+            <div class="mukhammas">
+              خوگر قربت و دیدار پہ کیسی گزرے
+              کیا خبر اس کے دل زار پہ کیسی گزرے
+              ہجر میں اس ترے بیمار پہ کیسی گزرے
+              دور کیا جانیے بد کار پہ کیسی گزرے
+              تیرے ہی در پہ مرے بیکس و تنہا تیرا
+            </div>
+          </div>
+        </div>
+
+        <!-- Mukhammas 3+2 -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold text-gray-900">3+2 Pattern</h3>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.mukhammas-3-2</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Gap after 3 lines, then 2 lines</p>
+          </div>
+          <div class="p-4 bg-gray-900 border-b border-gray-700">
+            <pre
+              class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="mukhammas-3-2"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+          <div class="p-8 poetry-text" dir="rtl">
+            <div class="mukhammas-3-2">
+              خوگر قربت و دیدار پہ کیسی گزرے
+              کیا خبر اس کے دل زار پہ کیسی گزرے
+              ہجر میں اس ترے بیمار پہ کیسی گزرے
+              دور کیا جانیے بد کار پہ کیسی گزرے
+              تیرے ہی در پہ مرے بیکس و تنہا تیرا
+            </div>
+          </div>
+        </div>
+
+        <!-- Mukhammas Mixed -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold text-gray-900">Mixed Layout</h3>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded font-mono">.mukhammas-mixed</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">4 lines in 2-column + 1 line in 1-column — strong closing emphasis</p>
+          </div>
+          <div class="p-4 bg-gray-900 border-b border-gray-700">
+            <pre
+              class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="mukhammas-mixed"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+          <div class="p-8 poetry-text" dir="rtl">
+            <div class="mukhammas-mixed">
+              خوگر قربت و دیدار پہ کیسی گزرے
+              کیا خبر اس کے دل زار پہ کیسی گزرے
+              ہجر میں اس ترے بیمار پہ کیسی گزرے
+              دور کیا جانیے بد کار پہ کیسی گزرے
+              تیرے ہی در پہ مرے بیکس و تنہا تیرا
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Patterns -->
+    <section id="custom">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Custom Patterns</h2>
+
+      <p class="text-gray-600 mb-8">
+        For poetic forms not covered by the built-in classes, use <code
+          class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-pattern</code>
+        and <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-mixed</code> attributes.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- data-pattern -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <h3 class="font-semibold text-gray-900">data-pattern</h3>
+            <p class="text-sm text-gray-500 mt-1">Define custom grouping patterns</p>
+          </div>
+          <div class="p-6 space-y-4">
+            <div>
+              <p class="text-sm text-gray-600 mb-2">Gap after every 4 lines (Qat'a):</p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-pattern="4"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-2">Gap after 3, then 2 (repeating):</p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-pattern="3+2"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-2">Gap after 7 lines:</p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-pattern="7"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- data-mixed -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <h3 class="font-semibold text-gray-900">data-mixed</h3>
+            <p class="text-sm text-gray-500 mt-1">Combine 1-column and 2-column layouts</p>
+          </div>
+          <div class="p-6 space-y-4">
+            <div>
+              <p class="text-sm text-gray-600 mb-2">4 lines 2-col, then 2 lines 1-col:</p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-mixed="4:2col,2:1col"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-2">3 lines 1-col, then 2 lines 2-col:</p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>&lt;div data-mixed="3:1col,2:2col"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+            <div class="pt-2 border-t border-gray-200">
+              <p class="text-xs text-gray-500">
+                <strong>Modes:</strong> <code class="bg-gray-100 px-1 rounded">1col</code> = single column,
+                <code class="bg-gray-100 px-1 rounded">2col</code> = two columns
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Copy Buttons -->
+    <section id="copy">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Copy Buttons (Opt-in)</h2>
+
+      <p class="text-gray-600 mb-6">
+        Enable copy-to-clipboard functionality with the <code
+          class="bg-gray-100 px-2 py-0.5 rounded text-sm">data-copy</code> attribute.
+        Buttons appear on hover (or tap on mobile). Poetry is copied with proper line breaks.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Copy All</h3>
+          <p class="text-sm text-gray-500 mb-3">Single button to copy entire poem</p>
+          <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="all"</code></pre>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Copy Row</h3>
+          <p class="text-sm text-gray-500 mb-3">Per-line copy buttons on hover</p>
+          <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="row"</code></pre>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Both</h3>
+          <p class="text-sm text-gray-500 mb-3">All + row buttons</p>
+          <pre class="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto"><code>data-copy="both"</code></pre>
+        </div>
+      </div>
+
+      <!-- Live Example with Copy -->
+      <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+          <h3 class="font-semibold text-gray-900">Live Example</h3>
+          <p class="text-sm text-gray-500 mt-1">Hover over the poem to see the copy button</p>
+        </div>
+        <div class="p-4 bg-gray-900 border-b border-gray-700">
+          <pre
+            class="text-gray-100 text-sm overflow-x-auto"><code>&lt;div class="sher" data-copy="all"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+        <div class="p-8 poetry-text" dir="rtl">
+          <div class="sher" data-copy="all">
+            پروانے کو چراغ ہے ، بلبل کو پھول بس
+            صدیق کے لئے ہے خدا کا رسول بس
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <p class="text-sm text-gray-600">
+          <strong>Note:</strong> When you copy poetry from this library (even without copy buttons),
+          lines are preserved with proper line breaks for pasting into other applications.
+        </p>
+      </div>
+    </section>
+
+    <!-- Quick Reference -->
+    <section class="bg-gray-50 rounded-xl border border-gray-200 p-8">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">Quick Reference</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-300">
+              <th class="py-3 pr-4 font-semibold text-gray-900">Class</th>
+              <th class="py-3 pr-4 font-semibold text-gray-900">Layout</th>
+              <th class="py-3 font-semibold text-gray-900">Description</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600">
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.sher</td>
+              <td class="py-3 pr-4">1-column</td>
+              <td class="py-3">Gap after every 2 lines</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.sher2</td>
+              <td class="py-3 pr-4">2-column</td>
+              <td class="py-3">Pairs displayed side by side</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.mukhammas</td>
+              <td class="py-3 pr-4">1-column</td>
+              <td class="py-3">Gap after every 5 lines</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.mukhammas-3-2</td>
+              <td class="py-3 pr-4">1-column</td>
+              <td class="py-3">Gap after 3, then 2 lines</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.mukhammas-mixed</td>
+              <td class="py-3 pr-4">Mixed</td>
+              <td class="py-3">4 lines 2-col + 1 line 1-col</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.musaddas</td>
+              <td class="py-3 pr-4">1-column</td>
+              <td class="py-3">Gap after 4, then 2 lines</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.musaddas-6</td>
+              <td class="py-3 pr-4">1-column</td>
+              <td class="py-3">Gap after every 6 lines</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="py-3 pr-4 font-mono text-gray-800">.musaddas-mixed</td>
+              <td class="py-3 pr-4">Mixed</td>
+              <td class="py-3">4 lines 2-col + 2 lines 1-col</td>
+            </tr>
+            <tr class="border-b border-gray-200 bg-gray-100/50">
+              <td class="py-3 pr-4 font-mono text-gray-800">data-pattern="N"</td>
+              <td class="py-3 pr-4">1-column</td>
+              <td class="py-3">Custom grouping, e.g. <code class="bg-gray-200 px-1 rounded text-xs">4</code>, <code
+                  class="bg-gray-200 px-1 rounded text-xs">3+2</code>, <code
+                  class="bg-gray-200 px-1 rounded text-xs">5+1</code></td>
+            </tr>
+            <tr class="bg-gray-100/50">
+              <td class="py-3 pr-4 font-mono text-gray-800">data-mixed="..."</td>
+              <td class="py-3 pr-4">Mixed</td>
+              <td class="py-3">Custom layout, e.g. <code class="bg-gray-200 px-1 rounded text-xs">4:2col,2:1col</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-6 py-12 text-center">
+      <p class="text-gray-600 mb-2">
+        Created by <a href="https://shakeeb.in" class="text-gray-900 hover:underline font-medium">Shakeeb Ahmad</a>
+      </p>
+      <p class="text-gray-400 text-sm">
+        MIT License &copy; 2020-2026
+      </p>
+      <p class="text-gray-400 text-sm mt-4">
+        <a href="https://ur.shakeeb.in" class="hover:text-gray-600">Urdu Blog</a>
+        <span class="mx-2">·</span>
+        <a href="https://github.com/ShakesVision/PoetryJustification" class="hover:text-gray-600">GitHub</a>
+        <span class="mx-2">·</span>
+        <a href="https://www.npmjs.com/package/shakeeb-justify" class="hover:text-gray-600">NPM</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ShakeebJustify Script -->
+  <script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.9/dist/shakeeb-justify.min.js"></script>
 </body>
+
 </html>
