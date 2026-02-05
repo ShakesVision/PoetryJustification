@@ -98,7 +98,7 @@
             
             <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">CDN (Recommended)</h3>
-                <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.5/dist/shakeeb-justify.min.js"&gt;&lt;/script&gt;</code></pre>
+                <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm"><code>&lt;script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.8/dist/shakeeb-justify.min.js"&gt;&lt;/script&gt;</code></pre>
             </div>
             
             <p class="text-gray-600 mt-4">
@@ -536,10 +536,20 @@
                             <td class="py-3 pr-4">1-column</td>
                             <td class="py-3">Gap after every 6 lines</td>
                         </tr>
-                        <tr>
+                        <tr class="border-b border-gray-200">
                             <td class="py-3 pr-4 font-mono text-gray-800">.musaddas-mixed</td>
                             <td class="py-3 pr-4">Mixed</td>
                             <td class="py-3">4 lines 2-col + 2 lines 1-col</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-100/50">
+                            <td class="py-3 pr-4 font-mono text-gray-800">data-pattern="N"</td>
+                            <td class="py-3 pr-4">1-column</td>
+                            <td class="py-3">Custom grouping, e.g. <code class="bg-gray-200 px-1 rounded text-xs">4</code>, <code class="bg-gray-200 px-1 rounded text-xs">3+2</code>, <code class="bg-gray-200 px-1 rounded text-xs">5+1</code></td>
+                        </tr>
+                        <tr class="bg-gray-100/50">
+                            <td class="py-3 pr-4 font-mono text-gray-800">data-mixed="..."</td>
+                            <td class="py-3 pr-4">Mixed</td>
+                            <td class="py-3">Custom layout, e.g. <code class="bg-gray-200 px-1 rounded text-xs">4:2col,2:1col</code></td>
                         </tr>
                     </tbody>
                 </table>

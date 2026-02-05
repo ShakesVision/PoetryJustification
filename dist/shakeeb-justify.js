@@ -2,500 +2,346 @@
  * ShakeebJustify (Poetry Justification for Urdu / Nastaliq)
  * Author: Shakeeb Ahmad
  * Website: https://shakeeb.in
- * Version: 1.0.6
+ * Version: 1.0.8
  * License: MIT
  */
 
 (function (global) {
 
-    /* -------------------- STYLES -------------------- */
+    // CSS is minified since it's just a string - doesn't need to be readable
+    var CSS = '.shakeeb-justify{border-collapse:collapse;margin:0 auto;position:relative;direction:rtl}' +
+        '.shakeeb-justify td{text-align:justify;text-align-last:justify;direction:rtl;line-height:1.5em;unicode-bidi:plaintext}' +
+        '.shakeeb-justify.sher2 td{width:46%}.shakeeb-justify.sher2 td.spacer-cell{width:10%}' +
+        '.shakeeb-justify tr.spacer td{height:15px;padding:0}' +
+        '.shakeeb-justify .sj-nl{position:absolute;left:-9999px;font-size:0;white-space:pre}' +
+        '.sj-copy-wrap{position:relative}' +
+        '.sj-copy-btn{position:absolute;top:0;left:0;z-index:10;background:#333;color:#fff;border:0;border-radius:4px;padding:6px 8px;cursor:pointer;opacity:0;transition:opacity .2s;font-size:14px;line-height:1}' +
+        '.sj-copy-wrap:hover .sj-copy-btn,.sj-copy-wrap:focus-within .sj-copy-btn{opacity:.8}' +
+        '.sj-copy-btn:hover{opacity:1!important;background:#000}' +
+        '.sj-copy-btn.copied{background:#22c55e}' +
+        '.shakeeb-justify tr{position:relative;direction:rtl}' +
+        '.sj-row-copy{position:absolute;left:-30px;top:50%;transform:translateY(-50%);background:#333;color:#fff;border:0;border-radius:3px;padding:4px 6px;cursor:pointer;opacity:0;transition:opacity .2s;font-size:12px;line-height:1}' +
+        '.shakeeb-justify tr:hover .sj-row-copy{opacity:.7}' +
+        '.sj-row-copy:hover{opacity:1!important;background:#000}' +
+        '.sj-row-copy.copied{background:#22c55e}' +
+        '.shakeeb-justify tr.spacer .sj-row-copy{display:none}';
 
+    var VALID_MODES = ['1col', '2col'];
+
+    /**
+     * Inject styles into document head
+     */
     function injectStyles() {
         if (document.getElementById('shakeeb-justify-style')) return;
-
-        const style = document.createElement('style');
+        var style = document.createElement('style');
         style.id = 'shakeeb-justify-style';
-        style.textContent = `
-            /* Base table styles - namespaced to avoid conflicts */
-            .shakeeb-justify {
-                border-collapse: collapse;
-                margin: 0 auto;
-                position: relative;
-            }
-
-            /* Common text styles for all poetry elements */
-            .shakeeb-justify td {
-                text-align: justify;
-                text-align-last: justify;
-                direction: rtl;
-                line-height: 1.5em;
-                unicode-bidi: plaintext;
-            }
-
-            /* Two-column layout widths */
-            .shakeeb-justify.sher2 td { width: 46%; }
-            .shakeeb-justify.sher2 td.spacer-cell { width: 10%; }
-
-            /* Spacer row for gaps between stanzas */
-            .shakeeb-justify tr.spacer td {
-                height: 15px;
-                padding: 0;
-            }
-
-            /* Hidden newline for proper copy behavior - invisible but copyable */
-            .shakeeb-justify .sj-nl {
-                position: absolute;
-                left: -9999px;
-                font-size: 0;
-                line-height: 0;
-                white-space: pre;
-            }
-
-            /* -------------------- COPY BUTTON STYLES -------------------- */
-            
-            /* Container needs relative positioning for button */
-            .sj-copy-wrap {
-                position: relative;
-            }
-
-            /* Copy all button - appears on container hover */
-            .sj-copy-btn {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 10;
-                background: #333;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                padding: 6px 8px;
-                cursor: pointer;
-                opacity: 0;
-                transition: opacity 0.2s;
-                font-size: 14px;
-                line-height: 1;
-            }
-
-            .sj-copy-wrap:hover .sj-copy-btn,
-            .sj-copy-wrap:focus-within .sj-copy-btn {
-                opacity: 0.8;
-            }
-
-            .sj-copy-btn:hover {
-                opacity: 1 !important;
-                background: #000;
-            }
-
-            .sj-copy-btn.copied {
-                background: #22c55e;
-            }
-
-            /* Row-level copy button */
-            .shakeeb-justify tr {
-                position: relative;
-            }
-
-            .sj-row-copy {
-                position: absolute;
-                left: -30px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: #333;
-                color: #fff;
-                border: none;
-                border-radius: 3px;
-                padding: 4px 6px;
-                cursor: pointer;
-                opacity: 0;
-                transition: opacity 0.2s;
-                font-size: 12px;
-                line-height: 1;
-            }
-
-            .shakeeb-justify tr:hover .sj-row-copy {
-                opacity: 0.7;
-            }
-
-            .sj-row-copy:hover {
-                opacity: 1 !important;
-                background: #000;
-            }
-
-            .sj-row-copy.copied {
-                background: #22c55e;
-            }
-
-            /* Hide row copy on spacer rows */
-            .shakeeb-justify tr.spacer .sj-row-copy {
-                display: none;
-            }
-        `;
+        style.textContent = CSS;
         document.head.appendChild(style);
     }
 
-    /* -------------------- TEXT NORMALIZATION -------------------- */
-
-    function extractLines(el) {
-        const clone = el.cloneNode(true);
-
-        clone.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
-        clone.querySelectorAll('p, div, li').forEach(b => b.append('\n'));
-
-        return clone.textContent
-            .replace(/\n\s*\n+/g, '\n')
-            .trim();
+    /**
+     * Extract lines from element, normalizing various HTML structures
+     */
+    function getLines(element) {
+        var clone = element.cloneNode(true);
+        clone.querySelectorAll('br').forEach(function (br) { br.replaceWith('\n'); });
+        clone.querySelectorAll('p, div, li').forEach(function (el) { el.append('\n'); });
+        return clone.textContent.replace(/\n\s*\n+/g, '\n').trim().split('\n').filter(Boolean);
     }
 
     /**
-     * Wraps line content with hidden newline for proper copy behavior.
-     * The \n is hidden visually but included when copying.
+     * Wrap text with hidden newline for copy behavior
      */
     function wrapLine(text) {
-        return `${text}<span class="sj-nl">\n</span>`;
+        return text + '<span class="sj-nl">\n</span>';
     }
 
-    /* -------------------- COPY FUNCTIONALITY -------------------- */
+    // HTML generation helpers
+    function singleRow(line) {
+        return '<tr><td>' + wrapLine(line) + '</td></tr>';
+    }
 
-    /**
-     * Extracts plain text from a poetry element for copying.
-     */
-    function getPoetryText(el) {
-        const table = el.querySelector('.shakeeb-justify');
-        if (!table) return '';
+    function doubleRow(line1, line2) {
+        return '<tr><td>' + wrapLine(line1 || '') + '</td><td class="spacer-cell"></td><td>' + wrapLine(line2 || '') + '</td></tr>';
+    }
 
-        const lines = [];
-        table.querySelectorAll('tr:not(.spacer)').forEach(row => {
-            const cells = row.querySelectorAll('td:not(.spacer-cell)');
-            cells.forEach(cell => {
-                const text = cell.textContent.replace(/\n/g, '').trim();
-                if (text) lines.push(text);
-            });
-        });
+    function spacerRow(colspan) {
+        return colspan ? '<tr class="spacer"><td colspan="3"></td></tr>' : '<tr class="spacer"><td></td></tr>';
+    }
 
-        return lines.join('\n');
+    function wrapTable(className, rows) {
+        return '<table class="shakeeb-justify ' + className + '">' + rows + '</table>';
     }
 
     /**
-     * Extracts text from a single row for copying.
+     * Render single-column layout with gaps
      */
-    function getRowText(row) {
-        const cells = row.querySelectorAll('td:not(.spacer-cell)');
-        const lines = [];
-        cells.forEach(cell => {
-            const text = cell.textContent.replace(/\n/g, '').trim();
-            if (text) lines.push(text);
-        });
-        return lines.join('\n');
-    }
-
-    /**
-     * Copies text to clipboard and shows feedback.
-     */
-    async function copyToClipboard(text, button) {
-        try {
-            await navigator.clipboard.writeText(text);
-            button.classList.add('copied');
-            const originalHTML = button.innerHTML;
-            button.innerHTML = '✓';
-            setTimeout(() => {
-                button.classList.remove('copied');
-                button.innerHTML = originalHTML;
-            }, 1500);
-        } catch (err) {
-            console.error('Copy failed:', err);
-        }
-    }
-
-    /**
-     * Adds copy button(s) to a poetry container.
-     * @param {HTMLElement} container - The poetry container element
-     * @param {string} mode - 'all', 'row', or 'both'
-     */
-    function addCopyButtons(container, mode) {
-        // Wrap container for positioning
-        container.classList.add('sj-copy-wrap');
-
-        // Add "copy all" button
-        if (mode === 'all' || mode === 'both') {
-            const btn = document.createElement('button');
-            btn.className = 'sj-copy-btn';
-            btn.innerHTML = '📋';
-            btn.title = 'Copy poem';
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const text = getPoetryText(container);
-                copyToClipboard(text, btn);
-            });
-            container.insertBefore(btn, container.firstChild);
-        }
-
-        // Add per-row copy buttons
-        if (mode === 'row' || mode === 'both') {
-            const table = container.querySelector('.shakeeb-justify');
-            if (table) {
-                table.querySelectorAll('tr:not(.spacer)').forEach(row => {
-                    const btn = document.createElement('button');
-                    btn.className = 'sj-row-copy';
-                    btn.innerHTML = '📋';
-                    btn.title = 'Copy line';
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const text = getRowText(row);
-                        copyToClipboard(text, btn);
-                    });
-                    row.querySelector('td').appendChild(btn);
-                });
-            }
-        }
-    }
-
-    /* -------------------- SINGLE-COLUMN RENDERER -------------------- */
-
-    /**
-     * Renders lines into a single-column table with optional spacer rows.
-     * @param {string} str - Newline-separated lines
-     * @param {number|null} gapEvery - Insert spacer row after every N lines (null = no spacers)
-     * @param {string} tableClass - Additional class for the table (e.g., 'sher', 'mukhammas')
-     * @returns {string} HTML table string
-     */
-    function tabulate(str, gapEvery = null, tableClass = 'sher') {
-        if (!str) return '';
-
-        const lines = str.split('\n').filter(Boolean);
-        let rows = '';
-
-        lines.forEach((line, i) => {
-            rows += `<tr><td>${wrapLine(line)}</td></tr>`;
-
-            // Add spacer row after every gapEvery lines
+    function tabulate(lines, gapEvery, tableClass) {
+        if (!lines.length) return '';
+        var rows = '';
+        lines.forEach(function (line, i) {
+            rows += singleRow(line);
             if (gapEvery && (i + 1) % gapEvery === 0 && i < lines.length - 1) {
-                rows += `<tr class="spacer"><td></td></tr>`;
+                rows += spacerRow();
             }
         });
-
-        return `<table class="shakeeb-justify ${tableClass}">${rows}</table>`;
+        return wrapTable(tableClass || 'sher', rows);
     }
-
-    /* -------------------- TWO-COLUMN RENDERER -------------------- */
 
     /**
-     * Renders lines into a two-column table (pairs of lines side by side).
-     * @param {string} str - Newline-separated lines
-     * @param {boolean} addFinalSpacer - Whether to add spacer after the last row
-     * @returns {string} HTML table string
+     * Render two-column layout
      */
-    function tabulate2(str, addFinalSpacer = false) {
-        if (!str) return '';
-
-        const lines = str.split('\n').filter(Boolean);
-        let rows = '';
-
-        for (let i = 0; i < lines.length; i += 2) {
-            rows += `<tr>
-                <td>${wrapLine(lines[i] || '')}</td>
-                <td class="spacer-cell"></td>
-                <td>${wrapLine(lines[i + 1] || '')}</td>
-            </tr>`;
-
-            // Add spacer row after each couplet (except the last, unless explicitly requested)
+    function tabulate2(lines, addFinalSpacer) {
+        if (!lines.length) return '';
+        var rows = '';
+        for (var i = 0; i < lines.length; i += 2) {
+            rows += doubleRow(lines[i], lines[i + 1]);
             if (i + 2 < lines.length || addFinalSpacer) {
-                rows += `<tr class="spacer"><td colspan="3"></td></tr>`;
+                rows += spacerRow(true);
             }
         }
-
-        return `<table class="shakeeb-justify sher2">${rows}</table>`;
+        return wrapTable('sher2', rows);
     }
 
-    /* -------------------- PATTERN HELPERS -------------------- */
-
-    function parsePattern(str) {
-        if (!str) return null;
-        return str.split('+').map(n => parseInt(n, 10)).filter(Boolean);
-    }
-
+    /**
+     * Group lines according to pattern (e.g., [4, 2] for musaddas)
+     */
     function groupLines(lines, pattern) {
-        const groups = [];
-        let i = 0;
-
+        var groups = [], i = 0;
         while (i < lines.length) {
-            for (let size of pattern) {
-                if (i >= lines.length) break;
-                groups.push(lines.slice(i, i + size));
-                i += size;
+            for (var p = 0; p < pattern.length && i < lines.length; p++) {
+                groups.push(lines.slice(i, i + pattern[p]));
+                i += pattern[p];
             }
         }
         return groups;
     }
 
     /**
-     * Renders element with pattern-based grouping (single table with spacer rows).
-     * @param {HTMLElement} el - The element to render
-     * @param {number[]} pattern - Array of group sizes, e.g., [4, 2] for musaddas
-     * @param {string} tableClass - Class name for the table
+     * Render with pattern-based grouping
      */
-    function renderPattern(el, pattern, tableClass = 'sher') {
-        const text = extractLines(el);
-        const lines = text.split('\n').filter(Boolean);
-        const groups = groupLines(lines, pattern);
+    function renderPattern(element, pattern, tableClass) {
+        var lines = getLines(element);
+        var groups = groupLines(lines, pattern);
+        var rows = '';
 
-        let rows = '';
-
-        groups.forEach((group, groupIndex) => {
-            // Add each line of the group
-            group.forEach(line => {
-                rows += `<tr><td>${wrapLine(line)}</td></tr>`;
-            });
-
-            // Add spacer row after each group (except the last)
-            if (groupIndex < groups.length - 1) {
-                rows += `<tr class="spacer"><td></td></tr>`;
-            }
+        groups.forEach(function (group, index) {
+            group.forEach(function (line) { rows += singleRow(line); });
+            if (index < groups.length - 1) rows += spacerRow();
         });
 
-        el.innerHTML = `<table class="shakeeb-justify ${tableClass}">${rows}</table>`;
+        element.innerHTML = wrapTable(tableClass || 'sher', rows);
     }
 
-    /* -------------------- MIXED LAYOUT -------------------- */
-    /*
-       data-mixed syntax:
-       "4:2col,2:1col"
-       "3:1col,2:1col"
-       "4:2col,1:1col"
-    */
+    /**
+     * Parse data-mixed attribute
+     */
+    function parseMixed(str, element) {
+        return str.split(',').map(function (part) {
+            var pieces = part.split(':');
+            var mode = (pieces[1] || '1col').trim();
 
-    function parseMixed(str) {
-        return str.split(',').map(part => {
-            const [count, mode] = part.split(':');
-            return {
-                count: parseInt(count, 10),
-                mode: mode
-            };
+            if (VALID_MODES.indexOf(mode) < 0) {
+                console.warn('[ShakeebJustify] Invalid mode "' + mode + '". Valid: ' + VALID_MODES.join(', '));
+                mode = '1col';
+            }
+
+            return { count: parseInt(pieces[0], 10) || 0, mode: mode };
         });
     }
 
     /**
-     * Renders mixed layout (combining 1-col and 2-col sections).
-     * Uses separate tables for different column layouts as they have different structures.
-     * Spacer is handled via margin-bottom on tables.
+     * Render mixed layout (combining 1-col and 2-col sections)
+     * Pattern repeats for all lines in the poem
      */
-    function renderMixedAdvanced(el, mixedSpec, tableClass = 'mixed') {
-        const text = extractLines(el);
-        const lines = text.split('\n').filter(Boolean);
+    function renderMixed(element, specs, tableClass) {
+        var lines = getLines(element);
+        var patternSize = specs.reduce(function (sum, s) { return sum + s.count; }, 0);
 
-        let i = 0;
-        let html = '';
+        // Warn if lines don't divide evenly into pattern
+        if (lines.length % patternSize !== 0) {
+            console.warn('[ShakeebJustify] Line count (' + lines.length + ') is not a multiple of pattern size (' + patternSize + ')', element);
+        }
 
-        mixedSpec.forEach((spec, specIndex) => {
-            const chunk = lines.slice(i, i + spec.count);
-            i += spec.count;
+        var lineIndex = 0;
+        var html = '';
+        var stanzaCount = 0;
 
-            const isLast = specIndex === mixedSpec.length - 1;
+        // Loop through ALL lines, repeating the pattern
+        while (lineIndex < lines.length) {
+            // Process each spec in the pattern
+            for (var specIndex = 0; specIndex < specs.length && lineIndex < lines.length; specIndex++) {
+                var spec = specs[specIndex];
+                var chunk = lines.slice(lineIndex, lineIndex + spec.count);
+                var rows = '';
+                lineIndex += spec.count;
 
-            if (spec.mode === '2col') {
-                // Two-column layout
-                let rows = '';
-                for (let j = 0; j < chunk.length; j += 2) {
-                    rows += `<tr>
-                        <td>${wrapLine(chunk[j] || '')}</td>
-                        <td class="spacer-cell"></td>
-                        <td>${wrapLine(chunk[j + 1] || '')}</td>
-                    </tr>`;
+                // Check if this is the very last chunk
+                var isLastChunk = lineIndex >= lines.length && specIndex === specs.length - 1;
 
-                    // Add spacer between couplets within this 2col section
-                    if (j + 2 < chunk.length) {
-                        rows += `<tr class="spacer"><td colspan="3"></td></tr>`;
+                if (spec.mode === '2col') {
+                    for (var j = 0; j < chunk.length; j += 2) {
+                        rows += doubleRow(chunk[j], chunk[j + 1]);
+                        if (j + 2 < chunk.length) rows += spacerRow(true);
                     }
+                    html += '<table class="shakeeb-justify sher2"' + (isLastChunk ? '' : ' style="margin-bottom:15px"') + '>' + rows + '</table>';
+                } else {
+                    chunk.forEach(function (line) { rows += singleRow(line); });
+                    html += '<table class="shakeeb-justify ' + (tableClass || 'mixed') + '"' + (isLastChunk ? '' : ' style="margin-bottom:15px"') + '>' + rows + '</table>';
                 }
-
-                html += `<table class="shakeeb-justify sher2"${!isLast ? ' style="margin-bottom: 15px;"' : ''}>${rows}</table>`;
-            } else {
-                // Single-column layout
-                let rows = '';
-                chunk.forEach((line, lineIndex) => {
-                    rows += `<tr><td>${wrapLine(line)}</td></tr>`;
-                });
-
-                html += `<table class="shakeeb-justify ${tableClass}"${!isLast ? ' style="margin-bottom: 15px;"' : ''}>${rows}</table>`;
             }
-        });
+            stanzaCount++;
+        }
 
-        el.innerHTML = html;
+        element.innerHTML = html;
     }
 
-    /* -------------------- APPLY -------------------- */
+    /**
+     * Get text content for copying
+     */
+    function getPoetryText(container) {
+        var table = container.querySelector('.shakeeb-justify');
+        if (!table) return '';
+        var lines = [];
+        table.querySelectorAll('tr:not(.spacer)').forEach(function (row) {
+            row.querySelectorAll('td:not(.spacer-cell)').forEach(function (cell) {
+                var text = cell.textContent.replace(/\n/g, '').trim();
+                if (text) lines.push(text);
+            });
+        });
+        return lines.join('\n');
+    }
 
+    function getRowText(row) {
+        var lines = [];
+        row.querySelectorAll('td:not(.spacer-cell)').forEach(function (cell) {
+            var text = cell.textContent.replace(/\n/g, '').trim();
+            if (text) lines.push(text);
+        });
+        return lines.join('\n');
+    }
+
+    /**
+     * Copy to clipboard with visual feedback
+     */
+    function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(function () {
+            button.classList.add('copied');
+            var original = button.innerHTML;
+            button.innerHTML = '✓';
+            setTimeout(function () {
+                button.classList.remove('copied');
+                button.innerHTML = original;
+            }, 1500);
+        }).catch(function (err) {
+            console.error('Copy failed:', err);
+        });
+    }
+
+    /**
+     * Add copy buttons to container
+     */
+    function addCopyButtons(container, mode) {
+        container.classList.add('sj-copy-wrap');
+
+        if (mode === 'all' || mode === 'both') {
+            var btn = document.createElement('button');
+            btn.className = 'sj-copy-btn';
+            btn.innerHTML = '📋';
+            btn.title = 'Copy poem';
+            btn.onclick = function (e) {
+                e.stopPropagation();
+                copyToClipboard(getPoetryText(container), btn);
+            };
+            container.insertBefore(btn, container.firstChild);
+        }
+
+        if (mode === 'row' || mode === 'both') {
+            var table = container.querySelector('.shakeeb-justify');
+            if (table) {
+                table.querySelectorAll('tr:not(.spacer)').forEach(function (row) {
+                    var btn = document.createElement('button');
+                    btn.className = 'sj-row-copy';
+                    btn.innerHTML = '📋';
+                    btn.title = 'Copy line';
+                    btn.onclick = function (e) {
+                        e.stopPropagation();
+                        copyToClipboard(getRowText(row), btn);
+                    };
+                    row.querySelector('td').appendChild(btn);
+                });
+            }
+        }
+    }
+
+    /**
+     * Main apply function
+     */
     function apply() {
         injectStyles();
 
-        /* Base sher - single column with gap every 2 lines */
-        document.querySelectorAll('.sher').forEach(e =>
-            e.innerHTML = tabulate(extractLines(e), 2, 'sher')
-        );
-
-        /* Base sher2 - two columns */
-        document.querySelectorAll('.sher2').forEach(e =>
-            e.innerHTML = tabulate2(extractLines(e))
-        );
-
-        /* Mukhammas - 5 lines per stanza */
-        document.querySelectorAll('.mukhammas').forEach(e =>
-            renderPattern(e, [5], 'mukhammas')
-        );
-
-        document.querySelectorAll('.mukhammas-3-2').forEach(e =>
-            renderPattern(e, [3, 2], 'mukhammas')
-        );
-
-        document.querySelectorAll('.mukhammas-mixed').forEach(e =>
-            renderMixedAdvanced(e, [
-                { count: 4, mode: '2col' },
-                { count: 1, mode: '1col' }
-            ], 'mukhammas')
-        );
-
-        /* Musaddas - 6 lines per stanza */
-        document.querySelectorAll('.musaddas').forEach(e =>
-            renderPattern(e, [4, 2], 'musaddas')
-        );
-
-        document.querySelectorAll('.musaddas-6').forEach(e =>
-            renderPattern(e, [6], 'musaddas')
-        );
-
-        document.querySelectorAll('.musaddas-mixed').forEach(e =>
-            renderMixedAdvanced(e, [
-                { count: 4, mode: '2col' },
-                { count: 2, mode: '1col' }
-            ], 'musaddas')
-        );
-
-        /* data-pattern override - custom patterns like data-pattern="4+2" */
-        document.querySelectorAll('[data-pattern]').forEach(e => {
-            const pattern = parsePattern(e.dataset.pattern);
-            if (pattern) renderPattern(e, pattern, 'custom-pattern');
+        // Basic layouts
+        document.querySelectorAll('.sher').forEach(function (el) {
+            el.innerHTML = tabulate(getLines(el), 2, 'sher');
         });
 
-        /* data-mixed override - custom mixed layouts like data-mixed="4:2col,2:1col" */
-        document.querySelectorAll('[data-mixed]').forEach(e => {
-            const spec = parseMixed(e.dataset.mixed);
-            if (spec) renderMixedAdvanced(e, spec, 'custom-mixed');
+        document.querySelectorAll('.sher2').forEach(function (el) {
+            el.innerHTML = tabulate2(getLines(el));
         });
 
-        /* Apply copy buttons to elements with data-copy attribute */
-        document.querySelectorAll('[data-copy]').forEach(e => {
-            const mode = e.dataset.copy || 'all';
-            // Small delay to ensure table is rendered first
-            setTimeout(() => addCopyButtons(e, mode), 0);
+        // Mukhammas variants
+        document.querySelectorAll('.mukhammas').forEach(function (el) {
+            renderPattern(el, [5], 'mukhammas');
         });
 
-        console.log(
-            '%cShakeebJustify v1.0.6 applied — https://shakeeb.in',
-            'color: green; font-weight: bold;'
-        );
+        document.querySelectorAll('.mukhammas-3-2').forEach(function (el) {
+            renderPattern(el, [3, 2], 'mukhammas');
+        });
+
+        document.querySelectorAll('.mukhammas-mixed').forEach(function (el) {
+            renderMixed(el, [{ count: 4, mode: '2col' }, { count: 1, mode: '1col' }], 'mukhammas');
+        });
+
+        // Musaddas variants
+        document.querySelectorAll('.musaddas').forEach(function (el) {
+            renderPattern(el, [4, 2], 'musaddas');
+        });
+
+        document.querySelectorAll('.musaddas-6').forEach(function (el) {
+            renderPattern(el, [6], 'musaddas');
+        });
+
+        document.querySelectorAll('.musaddas-mixed').forEach(function (el) {
+            renderMixed(el, [{ count: 4, mode: '2col' }, { count: 2, mode: '1col' }], 'musaddas');
+        });
+
+        // Custom patterns
+        document.querySelectorAll('[data-pattern]').forEach(function (el) {
+            var pattern = el.dataset.pattern.split('+').map(function (n) {
+                return parseInt(n, 10);
+            }).filter(Boolean);
+            if (pattern.length) renderPattern(el, pattern, 'custom-pattern');
+        });
+
+        document.querySelectorAll('[data-mixed]').forEach(function (el) {
+            var specs = parseMixed(el.dataset.mixed, el);
+            if (specs) renderMixed(el, specs, 'custom-mixed');
+        });
+
+        // Copy buttons (opt-in)
+        document.querySelectorAll('[data-copy]').forEach(function (el) {
+            setTimeout(function () {
+                addCopyButtons(el, el.dataset.copy || 'all');
+            }, 0);
+        });
+
+        console.log('%cShakeebJustify v1.0.8 — https://shakeeb.in', 'color: green; font-weight: bold');
     }
 
-    global.ShakeebJustify = { apply };
+    // Export
+    global.ShakeebJustify = { apply: apply };
 
+    // Auto-run
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', apply);
     } else {

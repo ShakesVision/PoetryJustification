@@ -1,10 +1,11 @@
 {
   "name": "shakeeb-justify",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Urdu poetry justification utility by Shakeeb Ahmad",
   "main": "dist/shakeeb-justify.min.js",
   "scripts": {
-    "build": "terser dist/shakeeb-justify.js -o dist/shakeeb-justify.min.js --compress --mangle"
+    "build": "terser dist/shakeeb-justify.js -o dist/shakeeb-justify.min.js --compress --mangle",
+    "test": "jest"
   },
   "keywords": [
     "justify-align-last",
@@ -26,6 +27,8 @@
     "url": "https://github.com/ShakesVision/PoetryJustification.git"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "terser": "^5.43.1"
   }
 }

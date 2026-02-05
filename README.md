@@ -45,12 +45,12 @@ This library formats poetry the way it is **read**, not just displayed.
 
 **Via npm (recommended):**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.6/dist/shakeeb-justify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.8/dist/shakeeb-justify.min.js"></script>
 ```
 
 **Via GitHub:**
 ```html
-<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.6/dist/shakeeb-justify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.8/dist/shakeeb-justify.min.js"></script>
 ```
 
 ### NPM
@@ -260,9 +260,29 @@ Build minified version:
 npm run build
 ```
 
+### Testing
+
+Run unit tests before publishing:
+
+```bash
+npm test
+```
+
+All tests must pass before pushing changes to the repository.
+
 ---
 
 ## Version History
+
+### 1.0.8
+- **Fixed mixed pattern repeating** — `.musaddas-mixed`, `.mukhammas-mixed`, and `data-mixed` now correctly repeat for long poems
+- **RTL direction on rows** — improved RTL support
+- **Unit tests added** — Jest test suite for regression prevention
+
+### 1.0.7
+- **RTL table direction** — tables now have `direction: rtl` for proper layout
+- **Input validation** — console warnings for invalid modes and line count mismatches
+- **Better error messages** — helps debug `data-mixed` configuration issues
 
 ### 1.0.6
 - **Copy-friendly output** — hidden newlines ensure copied text has proper line breaks
