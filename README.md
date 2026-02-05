@@ -43,6 +43,12 @@ This library formats poetry the way it is **read**, not just displayed.
 
 ### CDN (Recommended)
 
+**Via npm (recommended):**
+```html
+<script src="https://cdn.jsdelivr.net/npm/shakeeb-justify@1.0.6/dist/shakeeb-justify.min.js"></script>
+```
+
+**Via GitHub:**
 ```html
 <script src="https://cdn.jsdelivr.net/gh/shakesvision/PoetryJustification@1.0.6/dist/shakeeb-justify.min.js"></script>
 ```
